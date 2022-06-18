@@ -1,28 +1,18 @@
 import React, {useReducer} from 'react';
+import axios from 'axios';
+import {useToast} from 'react-native-toast-notifications';
 
 import AuthContext from './AuthContext';
 import AuthReducer from './AuthReducer';
+import {doPost} from '../../utils/apiActions';
 
-import {
-  F4_POST_SUCC_BALANCE,
-  LOGOUT,
-  REGISTER_FAIL,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  FALSE_REDIRECT,
-  VARIFY_OK,
-  LOADING,
-  CHECKOUT_ORDER,
-  GET_CHECKOUT_ORDER,
-  BALANCE_0,
-  CLOSE_MODAL_BALANCE,
-  REGISTER_SUCCESS,
-} from '../types';
+import {LOGIN_SUCCESS, LOADING, SIGN_UP_SUCCESS} from '../types';
 
 const AuthState = props => {
+  const toast = useToast();
   const initialState = {
-    user: null,
+    user: {refresh: '', access: '', id: null},
+    loading: false,
     refreshToken: null,
     error: false,
   };
@@ -31,20 +21,62 @@ const AuthState = props => {
 
   //Login User
   const signin = async formData => {
-    console.log('FormData: ', formData);
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: formData,
-    });
+    dispatch({type: LOADING, payload: true});
+    doPost('/accounts/login-api/', formData)
+      .then(({data}) => {
+        console.log('data: ', data);
+        dispatch({type: LOADING, payload: false});
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: data,
+        });
+      })
+      .catch(error => {
+        toast.show(JSON.stringify(error.response.data), {
+          type: 'warning',
+          duration: 3000,
+          animationType: 'zoom-in',
+        });
+
+        dispatch({type: LOADING, payload: false});
+      });
+  };
+
+  //Sign up user
+  const signup = async (FormData, navigation) => {
+    dispatch({type: LOADING, payload: true});
+    console.log('FormData: ', FormData);
+    axios
+      .post(`http://128.199.31.140:8444/accounts/register-api/`, FormData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(({data}) => {
+        console.log('data: ', data);
+        dispatch({type: LOADING, payload: false});
+        dispatch({
+          type: SIGN_UP_SUCCESS,
+          payload: FormData,
+        });
+        navigation.navigate('LoginScreen');
+      })
+      .catch(error => {
+        console.log('error: 2', error.response.data);
+
+        dispatch({type: LOADING, payload: false});
+      });
   };
 
   return (
     <AuthContext.Provider
       value={{
+        loading: state.loading,
         error: state.error,
         user: state.user,
         refreshToken: state.refreshToken,
         signin,
+        signup,
       }}>
       {props.children}
     </AuthContext.Provider>

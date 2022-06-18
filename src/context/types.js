@@ -1,18 +1,12 @@
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 //Auth
-export const LOGOUT = 'LOGOUT';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAIL = 'REGISTER_FAIL';
-export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
-export const FALSE_REDIRECT = 'FALSE_REDIRECT';
-export const VARIFY_OK = 'VARIFY_OK';
+export const LOGOUT = 'LOGOUT';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAIL = 'SIGN_UP_FAIL';
 export const LOADING = 'LOADING';
-export const CHECKOUT_ORDER = 'CHECKOUT_ORDER';
-export const GET_CHECKOUT_ORDER = 'GET_CHECKOUT_ORDER';
-export const BALANCE_0 = 'BALANCE_0';
-export const CLOSE_MODAL_BALANCE = 'CLOSE_MODAL_BALANCE';
+
 // F4
 export const F4_POST_SUCC_BALANCE = 'F4_POST_SUCC_BALANCE';
 export const F4_POST_BALANCE = 'F4_POST_BALANCE';

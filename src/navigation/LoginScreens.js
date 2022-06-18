@@ -9,15 +9,6 @@ import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
 const Stack = createNativeStackNavigator();
 
-const HomeScreen = ({navigation}) => {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
-      <Button title="tile" onPress={() => navigation.navigate('Details')} />
-    </View>
-  );
-};
-
 function DetailsScreen({navigation}) {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>

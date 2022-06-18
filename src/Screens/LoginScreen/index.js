@@ -1,34 +1,39 @@
-import React, {Fragment, useContext, useState, useRef} from 'react';
+import React, {Fragment, useContext, useState} from 'react';
 import {
   View,
   TextInput,
   Pressable,
   Text,
   SafeAreaView,
-  ScrollView,
   Image,
 } from 'react-native';
-
 import styles from './styles';
-import {Appbar, Button} from 'react-native-paper';
+import {Appbar} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import AuthContext from '../../context/auth/AuthContext';
+import Loading from '../../components/Loading';
 
-export default function LoginScreen({navigation}) {
+const LoginScreen = ({navigation}) => {
   const authContext = useContext(AuthContext);
-  const {signin} = authContext;
+  const {signin, loading} = authContext;
 
-  const handleChange = () => {};
+  const [user, seTuser] = useState({
+    phone_number: '',
+    password: '',
+  });
+
   const handleForgotPasswordScreen = () => {
     navigation.navigate('ForgotPasswordScreen');
   };
 
   const submitLogin = async () => {
-    signin(true);
+    signin(user);
   };
+  console.log('loading: ', loading);
   return (
     <Fragment>
+      <Loading loading={loading} />
       <Appbar.Header
         style={{
           backgroundColor: '#fff',
@@ -42,6 +47,7 @@ export default function LoginScreen({navigation}) {
           />
         </View>
       </Appbar.Header>
+
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>
           <View style={styles.container}>
@@ -57,21 +63,21 @@ export default function LoginScreen({navigation}) {
             </Text>
           </View>
 
-          <Text style={styles.legend}>E-post</Text>
+          <Text style={styles.legend}>Номер телефона</Text>
           <TextInput
             style={[styles.input]}
-            onChangeText={handleChange('email')}
-            value={'email'}
+            onChangeText={val => seTuser({...user, phone_number: val})}
+            value={user.phone_number}
             placeholderTextColor={'#999CA0'}
-            placeholder="john.doe@address.com"
+            placeholder="+7 777 777 77 77"
           />
 
           <Text style={styles.legend}>Пароль</Text>
           <View style={styles.inputWrapper}>
             <TextInput
               style={[styles.input]}
-              onChangeText={handleChange('password')}
-              value={'password'}
+              onChangeText={val => seTuser({...user, password: val})}
+              value={user.password}
               //secureTextEntry={passwordInputSecure}
               placeholderTextColor={'#999CA0'}
               placeholder={'.........'}
@@ -97,4 +103,6 @@ export default function LoginScreen({navigation}) {
       </KeyboardAwareScrollView>
     </Fragment>
   );
-}
+};
+
+export default LoginScreen;

@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState, useContext} from 'react';
 import {
   View,
   TextInput,
@@ -15,8 +15,11 @@ import {Dropdown} from 'sharingan-rn-modal-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNPickerSelect from 'react-native-picker-select';
 import {BarChart} from 'react-native-gifted-charts';
+import AuthContext from '../../context/auth/AuthContext';
 
 export default function DetectorScreen({navigation}) {
+  const authContext = useContext(AuthContext);
+  const {user, loading} = authContext;
   const data = [
     {
       value: 'detector',
@@ -53,6 +56,7 @@ export default function DetectorScreen({navigation}) {
     {value: 256, label: 'S'},
     {value: 300, label: 'S'},
   ];
+  console.log('user: 3 ', user);
   return (
     <Fragment>
       <Appbar.Header

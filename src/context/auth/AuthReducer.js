@@ -1,26 +1,23 @@
 import {CLEAR_ERRORS} from '../types';
 import {
-  F4_POST_SUCC_BALANCE,
   LOGOUT,
-  REGISTER_FAIL,
-  AUTH_ERROR,
+  SIGN_UP_SUCCESS,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  FALSE_REDIRECT,
-  VARIFY_OK,
   LOADING,
-  CHECKOUT_ORDER,
-  GET_CHECKOUT_ORDER,
-  BALANCE_0,
-  CLOSE_MODAL_BALANCE,
-  REGISTER_SUCCESS,
 } from '../types';
 
 export default (state, action) => {
   switch (action.type) {
+    case LOADING:
+      return {...state, loading: action.payload};
     case LOGIN_SUCCESS:
-    case SIGN_IN:
-      return {...state, user: action.payload};
+      console.log('action.payload: 3', action.payload);
+      let {refresh, access, id} = action.payload;
+      return {...state, user: {refresh, access, id}};
+    case SIGN_UP_SUCCESS:
+      console.log('reducer', action.payload);
+      return {...state, ddd: action.payload};
     case LOGOUT:
       utility.removeItem('token');
       utility.removeItem('user');
