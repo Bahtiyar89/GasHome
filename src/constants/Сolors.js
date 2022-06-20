@@ -16,5 +16,9 @@ const Colors = {
   red: '#F06767',
   darker: '#929292',
   disabled: '#00688F',
+
+  defaultBlackTrans: 'rgba(17, 18, 26, 0.8)',
+  violet: '#7D4BFF',
+  defaultBlack: '#11121A',
 };
 export default Colors;

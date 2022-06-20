@@ -6,6 +6,7 @@ import {
   LOGIN_FAIL,
   LOADING,
 } from '../types';
+import utility from '../../utils/Utility';
 
 export default (state, action) => {
   switch (action.type) {
@@ -14,20 +15,19 @@ export default (state, action) => {
     case LOGIN_SUCCESS:
       console.log('action.payload: 3', action.payload);
       let {refresh, access, id} = action.payload;
+      utility.setItemObject('user', {refresh, id});
+      utility.setItemObject('token', access);
       return {...state, user: {refresh, access, id}};
     case SIGN_UP_SUCCESS:
       console.log('reducer', action.payload);
       return {...state, ddd: action.payload};
     case LOGOUT:
-      utility.removeItem('token');
-      utility.removeItem('user');
-      utility.removeItem('wkeys');
-      console.log('LOGOUT : ');
+      const b = utility.removeItem('user');
+      console.log('LOGOUT : ', b);
       return {
         ...state,
-        isSigned: false,
         loading: false,
-        user: null,
+        user: {},
         error: [],
       };
     case CLEAR_ERRORS:

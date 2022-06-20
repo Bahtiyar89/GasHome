@@ -1,25 +1,30 @@
-import React, {Fragment, useState, useContext} from 'react';
-import {
-  View,
-  TextInput,
-  Pressable,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  Image,
-} from 'react-native';
+import React, {
+  Fragment,
+  useState,
+  useContext,
+  useRef,
+  useCallback,
+  useEffect,
+} from 'react';
+import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import {Appbar, ProgressBar} from 'react-native-paper';
 import {Dropdown} from 'sharingan-rn-modal-dropdown';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import RNPickerSelect from 'react-native-picker-select';
 import {BarChart} from 'react-native-gifted-charts';
+
 import AuthContext from '../../context/auth/AuthContext';
+import DetectorContext from '../../context/detector/DetectorContext';
+import defaultImage from '../../assets/defaultImage.jpg';
+import HomeBottomSheet from '../../components/HomeBottomSheet';
+import Loading from '../../components/Loading';
 
 export default function DetectorScreen({navigation}) {
   const authContext = useContext(AuthContext);
-  const {user, loading} = authContext;
+  const detectorContext = useContext(DetectorContext);
+  const {loading} = detectorContext;
+  const {user} = authContext;
+
   const data = [
     {
       value: 'detector',
@@ -56,21 +61,60 @@ export default function DetectorScreen({navigation}) {
     {value: 256, label: 'S'},
     {value: 300, label: 'S'},
   ];
-  console.log('user: 3 ', user);
+  const ref = useRef(null);
+  const profilePicture = null;
+  const renderImage = useCallback(() => {
+    return (
+      <Image srouce={defaultImage} style={{width: '100%', height: '100%'}} />
+    );
+  }, [profilePicture]);
+
+  useEffect(() => {
+    renderImage();
+  }, [renderImage]);
+  const bottomSheet = useRef();
+  const handleProfileScreen = () => {
+    // navigation.navigate('ProfileScreen');
+    // closeBottomSheet();
+  };
+
+  const handlePress = () => {
+    ref.current.show();
+  };
+  console.log('loading: 8989', loading);
   return (
     <Fragment>
+      <Loading loading={loading} />
       <Appbar.Header
         style={{
           backgroundColor: '#fff',
           borderBottomWidth: 1,
           borderBottomColor: '#003143',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
         }}>
-        <View style={{width: '100%'}}>
+        <View>
           <Image
             source={require('../../assets/sensor.png')} //Change your icon image here
             style={{height: 25, width: 25}}
           />
         </View>
+        <TouchableOpacity
+          onPress={handlePress}
+          style={{
+            borderRadius: 50,
+            overflow: 'hidden',
+          }}>
+          <Image
+            source={require('../../assets/defaultImage.jpg')} //Change your icon image here
+            style={{height: 25, width: 25}}
+          />
+        </TouchableOpacity>
+        <HomeBottomSheet
+          ref={ref}
+          navigation={navigation}
+          image={renderImage()}
+        />
       </Appbar.Header>
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>

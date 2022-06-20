@@ -9,14 +9,6 @@ import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen';
 import SignUpScreen from '../Screens/SignUpScreen';
 const Stack = createNativeStackNavigator();
 
-function DetailsScreen({navigation}) {
-  return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Details Screen</Text>
-    </View>
-  );
-}
-
 const LoginScreens = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -41,7 +33,6 @@ const LoginScreens = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Details" component={DetailsScreen} />
     </Stack.Navigator>
   );
 };

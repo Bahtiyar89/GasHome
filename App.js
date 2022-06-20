@@ -4,14 +4,17 @@ import {Provider as PaperProvider} from 'react-native-paper';
 import {ToastProvider} from 'react-native-toast-notifications';
 import Entrypoint from './src/Entrypoint';
 import AuthState from './src/context/auth/AuthState';
+import DetectorState from './src/context/detector/DetectorState';
 
 const App = () => {
   return (
     <ToastProvider placement="top" offsetTop={40}>
       <AuthState>
-        <PaperProvider>
-          <Entrypoint />
-        </PaperProvider>
+        <DetectorState>
+          <PaperProvider>
+            <Entrypoint />
+          </PaperProvider>
+        </DetectorState>
       </AuthState>
     </ToastProvider>
   );

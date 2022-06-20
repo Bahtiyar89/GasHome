@@ -6,13 +6,15 @@ import AuthContext from './AuthContext';
 import AuthReducer from './AuthReducer';
 import {doPost} from '../../utils/apiActions';
 
-import {LOGIN_SUCCESS, LOADING, SIGN_UP_SUCCESS} from '../types';
+import {LOGIN_SUCCESS, LOADING, SIGN_UP_SUCCESS, LOGOUT} from '../types';
+import utility from '../../utils/Utility';
 
 const AuthState = props => {
   const toast = useToast();
   const initialState = {
-    user: {refresh: '', access: '', id: null},
+    user: null,
     loading: false,
+    token: null,
     refreshToken: null,
     error: false,
   };
@@ -68,6 +70,17 @@ const AuthState = props => {
       });
   };
 
+  //logout
+  const signout = async () => {
+    try {
+      dispatch({type: LOADING, payload: true});
+      dispatch({type: LOGOUT});
+      dispatch({type: LOADING, payload: false});
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -76,6 +89,7 @@ const AuthState = props => {
         user: state.user,
         refreshToken: state.refreshToken,
         signin,
+        signout,
         signup,
       }}>
       {props.children}

@@ -1,18 +1,17 @@
 import axios from 'axios';
+import utility from '../utils/Utility';
 
 export const doGet = async (uri, params = {}) => {
-  //const token = await utility.getItem('token');
-
+  const token = await utility.getItem('token');
+  console.log('token: 3', token);
   const config = {
     headers: {
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer  ${JSON.parse(token)}`,
       'Content-Type': 'application/json',
     },
     params,
   };
-  console.log('config 4', config);
-  console.log('ur 4', 'http://176.113.80.7:62000/' + uri);
-  return await axios.get('http://176.113.80.7:62000/' + uri, config);
+  return await axios.get('http://128.199.31.140:8444' + uri, config);
 };
 
 export const doPost = async (uri, postData, params = {}) => {
