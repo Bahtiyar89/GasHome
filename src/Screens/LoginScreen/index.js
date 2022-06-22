@@ -19,8 +19,8 @@ const LoginScreen = ({navigation}) => {
   const {signin, loading} = authContext;
 
   const [user, seTuser] = useState({
-    phone_number: '',
-    password: '',
+    phone_number: '12342',
+    password: '1234',
   });
 
   const handleForgotPasswordScreen = () => {

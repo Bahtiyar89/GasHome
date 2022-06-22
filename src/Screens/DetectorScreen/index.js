@@ -11,20 +11,28 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
 import {Appbar, ProgressBar} from 'react-native-paper';
 import {Dropdown} from 'sharingan-rn-modal-dropdown';
-import {BarChart} from 'react-native-gifted-charts';
+import {useFocusEffect} from '@react-navigation/native';
 
 import AuthContext from '../../context/auth/AuthContext';
 import DetectorContext from '../../context/detector/DetectorContext';
 import defaultImage from '../../assets/defaultImage.jpg';
 import HomeBottomSheet from '../../components/HomeBottomSheet';
-import Loading from '../../components/Loading';
+import CustomModal from '../../components/CustomLoading';
+import Client from './Client';
+import Detector from './Detector';
 
 export default function DetectorScreen({navigation}) {
   const authContext = useContext(AuthContext);
   const detectorContext = useContext(DetectorContext);
-  const {loading} = detectorContext;
+  const {
+    getDevice,
+    getHistory,
+    getProfile,
+    profile,
+    loading_detector,
+    detectorHistory,
+  } = detectorContext;
   const {user} = authContext;
-
   const data = [
     {
       value: 'detector',
@@ -41,6 +49,7 @@ export default function DetectorScreen({navigation}) {
   });
   const onChangeLanguage = language => {
     if (language === 'client') {
+      getProfile();
       seTlang({
         value: 'client',
         label: 'Клиент',
@@ -72,7 +81,20 @@ export default function DetectorScreen({navigation}) {
   useEffect(() => {
     renderImage();
   }, [renderImage]);
-  const bottomSheet = useRef();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Do something when the screen is focused
+      getDevice();
+      // getHistory(7);
+
+      return () => {
+        // Do something when the screen is unfocused
+        // Useful for cleanup functions
+      };
+    }, []),
+  );
+
   const handleProfileScreen = () => {
     // navigation.navigate('ProfileScreen');
     // closeBottomSheet();
@@ -81,10 +103,10 @@ export default function DetectorScreen({navigation}) {
   const handlePress = () => {
     ref.current.show();
   };
-  console.log('loading: 8989', loading);
+  console.log('user: ', user);
   return (
     <Fragment>
-      <Loading loading={loading} />
+      {loading_detector && <CustomModal loading={loading_detector} />}
       <Appbar.Header
         style={{
           backgroundColor: '#fff',
@@ -116,6 +138,7 @@ export default function DetectorScreen({navigation}) {
           image={renderImage()}
         />
       </Appbar.Header>
+
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -130,111 +153,9 @@ export default function DetectorScreen({navigation}) {
             <Text>2/3</Text>
           </View>
           {lang.value === 'detector' && (
-            <Fragment>
-              <Text style={{marginTop: 10}}>Уровень заряда аккумулятора</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                }}>
-                <Text style={{}}>78%</Text>
-                <Text style={{}}>Осталось 11 дней, 16 часов</Text>
-              </View>
-              <ProgressBar
-                style={{backgroundColor: '#999'}}
-                progress={0.78}
-                color={'#C7DF69'}
-              />
-              <Text style={{textAlign: 'center', marginTop: 10}}>Датчик</Text>
-              <BarChart
-                barWidth={22}
-                noOfSections={3}
-                barBorderRadius={4}
-                frontColor="lightgray"
-                data={barData}
-                yAxisThickness={0}
-                xAxisThickness={0}
-              />
-              <View
-                style={{
-                  marginTop: 40,
-                  padding: 20,
-                  borderRadius: 10,
-                  backgroundColor: '#fff',
-                  alignItems: 'center',
-                }}>
-                <Text>Электромагнитный клапан</Text>
-                <View
-                  style={{
-                    marginTop: 10,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    width: '100%',
-                  }}>
-                  <View
-                    style={{
-                      borderBottomWidth: 1,
-                      textDecorationLine: 'underline',
-                      textDecorationStyle: 'solid',
-                      borderColor: '#27C69F',
-                      height: 18,
-                    }}>
-                    <Text style={{color: '#27C69F'}}>Открыть</Text>
-                  </View>
-
-                  <View>
-                    <Text>Последнее переключение</Text>
-                    <Text style={{textAlign: 'right'}}>25.04.2022 15:45</Text>
-                  </View>
-                </View>
-              </View>
-            </Fragment>
+            <Detector detectorHistory={detectorHistory} barData={barData} />
           )}
-          {lang.value === 'client' && (
-            <View
-              style={{
-                marginTop: 20,
-                padding: 20,
-                borderRadius: 10,
-                backgroundColor: '#fff',
-                alignItems: 'center',
-              }}>
-              <Text style={{marginTop: 10}}>Клиент</Text>
-              <Text
-                style={{
-                  padding: 5,
-                  textAlign: 'center',
-                  width: '100%',
-                  marginTop: 10,
-                  backgroundColor: '#f2f2f2',
-                }}>
-                Иван Иванов
-              </Text>
-              <Text
-                style={{
-                  padding: 5,
-                  textAlign: 'center',
-                  width: '100%',
-                  marginTop: 10,
-                  backgroundColor: '#f2f2f2',
-                }}>
-                +7(123) 123 32 32
-              </Text>
-              <Text
-                style={{
-                  padding: 5,
-                  textAlign: 'center',
-                  width: '100%',
-                  marginTop: 10,
-                  backgroundColor: '#f2f2f2',
-                }}>
-                Москва, Ленина, 35
-              </Text>
-            </View>
-          )}
+          {lang.value === 'client' && <Client profile={profile} />}
         </SafeAreaView>
       </KeyboardAwareScrollView>
     </Fragment>
