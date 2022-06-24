@@ -95,15 +95,10 @@ export default function DetectorScreen({navigation}) {
     }, []),
   );
 
-  const handleProfileScreen = () => {
-    // navigation.navigate('ProfileScreen');
-    // closeBottomSheet();
-  };
-
   const handlePress = () => {
     ref.current.show();
   };
-  console.log('user: ', user);
+
   return (
     <Fragment>
       {loading_detector && <CustomModal loading={loading_detector} />}

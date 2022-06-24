@@ -16,18 +16,17 @@ const HomeBottomSheet = forwardRef(({image, navigation}, ref) => {
   const authContext = useContext(AuthContext);
   const {signout} = authContext;
   const detectorContext = useContext(DetectorContext);
-  const {getProfile, loading} = detectorContext;
 
   const closeBottomSheet = () => {
     ref.current.close();
   };
   const handleProfileScreen = () => {
-    getProfile(navigation);
+    navigation.navigate('ProfileScreen');
     closeBottomSheet();
   };
 
   const handleHelp = () => {
-    //  navigation.navigate('HelpScreen');
+    navigation.navigate('ProfileScreen');
     closeBottomSheet();
   };
 

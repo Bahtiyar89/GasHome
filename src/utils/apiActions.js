@@ -27,15 +27,16 @@ export const doPost = async (uri, postData, params = {}) => {
 };
 
 export const doPatch = async (uri, patchData, params = {}) => {
+  const token = await utility.getItem('token');
   const config = {
     headers: {
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer  ${JSON.parse(token)}`,
       'Content-Type': 'application/json',
     },
     params,
   };
   return await axios.patch(
-    'https://swttoken.herokuapp.com/' + uri,
+    'http://128.199.31.140:8444' + uri,
     patchData,
     config,
   );

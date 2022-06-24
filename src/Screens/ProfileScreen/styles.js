@@ -6,10 +6,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#003143',
     backgroundColor: '#fff',
+    justifyContent: 'space-between',
   },
   appBarHeaderText: {
-    flex: 0.9,
-    textAlign: 'center',
     color: Colors.black,
     fontSize: 17,
   },
