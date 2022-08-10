@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Linking,
 } from 'react-native';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -30,27 +31,27 @@ export default function CallScreen({navigation}) {
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
-            <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.firstRow}>
               <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                  padding: 10,
-                  borderRadius: 7,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '95%',
-                  backgroundColor: '#FFA313',
+                onPress={() => {
+                  Linking.openURL('tel://112');
                 }}
-                onPress={() => seTactWeek('weekend')}>
-                <Image
-                  source={require('../../assets/sos.png')} //Change your icon image here
-                  style={{height: 20, width: 20}}
-                />
-                <Text style={[styles.tabButtonText, {marginLeft: 5}]}>
-                  Отправить информацию SOS
+                style={styles.secondButton}>
+                <Text style={{marginLeft: 5, fontWeight: '700'}}>
+                  Вызвать МЧС
                 </Text>
               </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                marginTop: 20,
+                flex: 1,
+                backgroundColor: '#fff',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: 20,
+                borderRadius: 12,
+              }}>
               <Text style={{marginTop: 10}}>Электромагнитный клапан</Text>
               <View
                 style={{
