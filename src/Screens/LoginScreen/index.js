@@ -22,6 +22,7 @@ const LoginScreen = ({navigation}) => {
     phone_number: '12342',
     password: '1234',
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleForgotPasswordScreen = () => {
     navigation.navigate('ForgotPasswordScreen');
@@ -78,14 +79,16 @@ const LoginScreen = ({navigation}) => {
               style={[styles.input]}
               onChangeText={val => seTuser({...user, password: val})}
               value={user.password}
-              //secureTextEntry={passwordInputSecure}
+              secureTextEntry={showPassword}
               placeholderTextColor={'#999CA0'}
               placeholder={'.........'}
             />
             <Pressable
-              onPress={() => console.log('pressed')}
+              onPress={() => setShowPassword(!showPassword)}
               style={styles.togglePassWrapper}>
-              <Text style={styles.togglePassText}>{'скрыть'}</Text>
+              <Text style={styles.togglePassText}>
+                {showPassword ? 'показать' : 'скрыть'}
+              </Text>
             </Pressable>
           </View>
           <View style={{marginTop: 20}}>
