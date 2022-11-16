@@ -20,9 +20,9 @@ export default function CallScreen({navigation}) {
     <Fragment>
       <Appbar.Header style={styles.appBarHeader}>
         <Pressable onPress={() => props.navigation.goBack()}>
-          <Image
-            source={require('../../assets/sensor.png')} //Change your icon image here
-            style={{height: 20, width: 20}}
+        <Image
+            source={require('../../assets/appIcon.png')} //Change your icon image here
+            style={{height: 25, width: 25}}
           />
         </Pressable>
         <Text style={styles.appBarHeaderText}>Вызов</Text>

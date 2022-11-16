@@ -23,8 +23,8 @@ export default function MoreScreen({navigation}) {
           borderBottomColor: '#003143',
         }}>
         <View style={{width: '100%'}}>
-          <Image
-            source={require('../../assets/sensor.png')} //Change your icon image here
+        <Image
+            source={require('../../assets/appIcon.png')} //Change your icon image here
             style={{height: 25, width: 25}}
           />
         </View>

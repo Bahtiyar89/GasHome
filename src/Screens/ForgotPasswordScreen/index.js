@@ -40,8 +40,8 @@ export default function ForgotPasswordScreen({navigation}) {
     <Fragment>
       <Appbar.Header style={styles.header}>
         <View style={{width: '100%'}}>
-          <Image
-            source={require('../../assets/sensor.png')} //Change your icon image here
+        <Image
+            source={require('../../assets/appIcon.png')} //Change your icon image here
             style={{height: 25, width: 25}}
           />
         </View>

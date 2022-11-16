@@ -111,8 +111,8 @@ export default function DetectorScreen({navigation}) {
           justifyContent: 'space-between',
         }}>
         <View>
-          <Image
-            source={require('../../assets/sensor.png')} //Change your icon image here
+         <Image
+            source={require('../../assets/appIcon.png')} //Change your icon image here
             style={{height: 25, width: 25}}
           />
         </View>
