@@ -4,8 +4,8 @@ import Colors from '../../constants/Сolors';
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   container: {
     alignSelf: 'flex-end',
