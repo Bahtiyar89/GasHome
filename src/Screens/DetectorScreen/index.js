@@ -12,7 +12,6 @@ import styles from './styles';
 import {Appbar, ProgressBar} from 'react-native-paper';
 import {Dropdown} from 'sharingan-rn-modal-dropdown';
 import {useFocusEffect} from '@react-navigation/native';
-
 import AuthContext from '../../context/auth/AuthContext';
 import DetectorContext from '../../context/detector/DetectorContext';
 import defaultImage from '../../assets/defaultImage.jpg';
@@ -22,7 +21,6 @@ import Client from './Client';
 import Detector from './Detector';
 
 export default function DetectorScreen({navigation}) {
-  const authContext = useContext(AuthContext);
   const detectorContext = useContext(DetectorContext);
   const {
     getDevice,
@@ -32,7 +30,7 @@ export default function DetectorScreen({navigation}) {
     loading_detector,
     detectorHistory,
   } = detectorContext;
-  const {user} = authContext;
+
   const data = [
     {
       value: 'detector',
@@ -105,17 +103,14 @@ export default function DetectorScreen({navigation}) {
       <Appbar.Header
         style={{
           backgroundColor: '#fff',
-          borderBottomWidth: 1,
-          borderBottomColor: '#003143',
           flexDirection: 'row',
           justifyContent: 'space-between',
+          height: 30,
         }}>
-        <View>
-         <Image
-            source={require('../../assets/appIcon.png')} //Change your icon image here
-            style={{height: 25, width: 25}}
-          />
-        </View>
+        <Image
+          source={require('../../assets/appIcon.png')} //Change your icon image here
+          style={{height: 30, width: 30}}
+        />
         <TouchableOpacity
           onPress={handlePress}
           style={{
@@ -123,8 +118,8 @@ export default function DetectorScreen({navigation}) {
             overflow: 'hidden',
           }}>
           <Image
-            source={require('../../assets/defaultImage.jpg')} //Change your icon image here
-            style={{height: 25, width: 25}}
+            source={require('../../assets/bottom_sheet.png')} //Change your icon image here
+            style={{height: 30, width: 30}}
           />
         </TouchableOpacity>
         <HomeBottomSheet

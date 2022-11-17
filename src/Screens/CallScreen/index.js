@@ -1,32 +1,23 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment} from 'react';
 import {
   View,
-  TextInput,
-  Pressable,
   Text,
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  Image,
   Linking,
 } from 'react-native';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {Button} from 'react-native-paper';
+
+import CustomHeaderOne from '../../components/CustomHeaderOne';
 import styles from './styles';
-import {Appbar, Button} from 'react-native-paper';
 
 export default function CallScreen({navigation}) {
   return (
     <Fragment>
-      <Appbar.Header style={styles.appBarHeader}>
-        <Pressable onPress={() => props.navigation.goBack()}>
-        <Image
-            source={require('../../assets/appIcon.png')} //Change your icon image here
-            style={{height: 25, width: 25}}
-          />
-        </Pressable>
-        <Text style={styles.appBarHeaderText}>Вызов</Text>
-      </Appbar.Header>
+      <CustomHeaderOne />
 
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>

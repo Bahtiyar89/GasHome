@@ -1,18 +1,11 @@
 import React, {Fragment, useContext, useState} from 'react';
-import {
-  View,
-  TextInput,
-  Pressable,
-  Text,
-  SafeAreaView,
-  Image,
-} from 'react-native';
+import {View, TextInput, Pressable, Text, SafeAreaView} from 'react-native';
 import styles from './styles';
-import {Appbar} from 'react-native-paper';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import AuthContext from '../../context/auth/AuthContext';
 import Loading from '../../components/Loading';
+import CustomHeaderOne from '../../components/CustomHeaderOne';
 
 const LoginScreen = ({navigation}) => {
   const authContext = useContext(AuthContext);
@@ -35,19 +28,7 @@ const LoginScreen = ({navigation}) => {
   return (
     <Fragment>
       <Loading loading={loading} />
-      <Appbar.Header
-        style={{
-          backgroundColor: '#fff',
-          borderBottomWidth: 1,
-          borderBottomColor: '#003143',
-        }}>
-        <View style={{width: '100%'}}>
-        <Image
-            source={require('../../assets/appIcon.png')} //Change your icon image here
-            style={{height: 25, width: 25}}
-          />
-        </View>
-      </Appbar.Header>
+      <CustomHeaderOne />
 
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>

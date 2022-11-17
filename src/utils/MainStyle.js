@@ -3,8 +3,7 @@ import Colors from '../constants/Сolors';
 
 const styles = StyleSheet.create({
   appBarThreeItems: {
-    paddingVertical: 16,
-    paddingHorizontal: 15,
+    height: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: Colors.white,

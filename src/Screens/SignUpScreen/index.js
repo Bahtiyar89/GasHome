@@ -6,15 +6,13 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
-  Image,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import styles from './styles';
-import {Appbar} from 'react-native-paper';
-import Logo from '../../assets/logo.svg';
 import AuthContext from '../../context/auth/AuthContext';
 import Loading from '../../components/Loading';
+import CustomHeaderOne from '../../components/CustomHeaderOne';
 
 export default function SignUpScreen({navigation}) {
   const authContext = useContext(AuthContext);
@@ -42,19 +40,7 @@ export default function SignUpScreen({navigation}) {
   return (
     <Fragment>
       <Loading loading={loading} />
-      <Appbar.Header
-        style={{
-          backgroundColor: '#fff',
-          borderBottomWidth: 1,
-          borderBottomColor: '#003143',
-        }}>
-        <View style={{width: '100%'}}>
-        <Image
-            source={require('../../assets/appIcon.png')} //Change your icon image here
-            style={{height: 25, width: 25}}
-          />
-        </View>
-      </Appbar.Header>
+      <CustomHeaderOne />
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">

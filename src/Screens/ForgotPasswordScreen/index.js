@@ -1,19 +1,11 @@
 import React, {Fragment, useState} from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Pressable,
-  TextInput,
-  Image,
-} from 'react-native';
+import {View, Text, SafeAreaView, Pressable, TextInput} from 'react-native';
 
-import {Appbar} from 'react-native-paper';
 import OcticonsIcons from 'react-native-vector-icons/Octicons';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import styles from './styles';
 import CheckEmailModal from '../../components/CheckEmailModal';
+import CustomHeaderOne from '../../components/CustomHeaderOne';
+import styles from './styles';
 
 export default function ForgotPasswordScreen({navigation}) {
   const [userData, seTuserData] = useState({email: ''});
@@ -32,20 +24,11 @@ export default function ForgotPasswordScreen({navigation}) {
     setShowModal(false);
   };
 
-  const validation = () => {};
-
   const onComplete = () => {};
   console.log('email. ', userData);
   return (
     <Fragment>
-      <Appbar.Header style={styles.header}>
-        <View style={{width: '100%'}}>
-        <Image
-            source={require('../../assets/appIcon.png')} //Change your icon image here
-            style={{height: 25, width: 25}}
-          />
-        </View>
-      </Appbar.Header>
+      <CustomHeaderOne />
       <SafeAreaView style={styles.screen}>
         <View style={styles.container}>
           <Text style={styles.haveAnAccountText}>Нет аккаунта?</Text>

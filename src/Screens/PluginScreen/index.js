@@ -1,33 +1,14 @@
-import {
-  View,
-  TextInput,
-  Pressable,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  Image,
-} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import React, {Fragment, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+
+import CustomHeaderOne from '../../components/CustomHeaderOne';
 import styles from './styles';
-import {Appbar} from 'react-native-paper';
 
 export default function PluginScreen({navigation}) {
   return (
     <Fragment>
-      <Appbar.Header
-        style={{
-          backgroundColor: '#fff',
-          borderBottomWidth: 1,
-          borderBottomColor: '#003143',
-        }}>
-        <View style={{width: '100%'}}>
-        <Image
-            source={require('../../assets/appIcon.png')} //Change your icon image here
-            style={{height: 25, width: 25}}
-          />
-        </View>
-      </Appbar.Header>
+      <CustomHeaderOne />
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
