@@ -4,8 +4,8 @@ import Colors from '../../constants/Сolors';
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   appBarHeader: {
     backgroundColor: '#fff',
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   firstRow: {
     flex: 1,
+    marginTop: 10,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',

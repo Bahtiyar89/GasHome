@@ -131,7 +131,8 @@ export default function DetectorScreen({navigation}) {
 
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View
+            style={{marginTop: 10, flexDirection: 'row', alignItems: 'center'}}>
             <Dropdown
               mainContainerStyle={{width: '50%'}}
               label=""
