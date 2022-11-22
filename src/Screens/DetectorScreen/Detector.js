@@ -9,7 +9,6 @@ import {
   VictoryAxis,
 } from 'victory-native';
 import {Dimensions} from 'react-native';
-import DetectorHeader from './DetectorHeader';
 import DetectorBottom from './DetectorBottom';
 
 export default function Detector({detectorHistory}) {
@@ -52,8 +51,7 @@ export default function Detector({detectorHistory}) {
 
   return (
     <Fragment>
-      <DetectorHeader />
-      <Text style={{textAlign: 'center', marginTop: 10, fontWeight: 'bold'}}>
+      <Text style={{textAlign: 'center', marginTop: 20, fontWeight: 'bold'}}>
         Датчик
       </Text>
       <VictoryChart>
