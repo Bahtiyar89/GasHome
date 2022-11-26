@@ -12,8 +12,8 @@ const LoginScreen = ({navigation}) => {
   const {signin, loading} = authContext;
 
   const [user, seTuser] = useState({
-    phone_number: '12342',
-    password: '1234',
+    phone_number: '',
+    password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
 
