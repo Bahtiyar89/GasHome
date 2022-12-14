@@ -6,6 +6,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AuthContext from '../../context/auth/AuthContext';
 import Loading from '../../components/Loading';
 import CustomHeaderOne from '../../components/CustomHeaderOne';
+import CustomInputPhoneNumber from '../../components/CustomInputPhoneNumber';
 
 const LoginScreen = ({navigation}) => {
   const authContext = useContext(AuthContext);
@@ -16,15 +17,17 @@ const LoginScreen = ({navigation}) => {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [maskedPhoneNumber, setMaskedPhoneNumber] = useState('');
 
   const handleForgotPasswordScreen = () => {
     navigation.navigate('ForgotPasswordScreen');
   };
 
   const submitLogin = async () => {
-    signin(user);
+    let unmasked = maskedPhoneNumber.replace(/[+, ]/g, '');
+    signin({password: user.password, phone_number: unmasked});
   };
-  console.log('loading: ', loading);
+
   return (
     <Fragment>
       <Loading loading={loading} />
@@ -45,13 +48,12 @@ const LoginScreen = ({navigation}) => {
             </Text>
           </View>
 
-          <Text style={styles.legend}>Номер телефона</Text>
-          <TextInput
-            style={[styles.input]}
-            onChangeText={val => seTuser({...user, phone_number: val})}
-            value={user.phone_number}
-            placeholderTextColor={'#999CA0'}
-            placeholder="+7 777 777 77 77"
+          <CustomInputPhoneNumber
+            labelText={'Номер телефона'}
+            onChangeInput={val => setMaskedPhoneNumber(val)}
+            inputText={maskedPhoneNumber}
+            inputType="numeric"
+            mask={true}
           />
 
           <Text style={styles.legend}>Пароль</Text>

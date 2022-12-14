@@ -26,7 +26,7 @@ const AuthState = props => {
     dispatch({type: LOADING, payload: true});
     doPost('/accounts/login-api/', formData)
       .then(({data}) => {
-        console.log('data: ', data);
+        console.log('data: 32', data);
         dispatch({type: LOADING, payload: false});
         dispatch({
           type: LOGIN_SUCCESS,

@@ -28,7 +28,8 @@ export default function CallScreen({navigation}) {
                   Linking.openURL('tel://112');
                 }}
                 style={styles.secondButton}>
-                <Text style={{marginLeft: 5, fontWeight: '700'}}>
+                <Text
+                  style={{marginLeft: 5, fontWeight: '700', color: 'white'}}>
                   Вызвать МЧС
                 </Text>
               </TouchableOpacity>

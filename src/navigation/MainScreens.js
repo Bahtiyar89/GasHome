@@ -44,7 +44,7 @@ const MainScreens = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Plugin"
         component={PluginScreen}
         options={{
@@ -58,7 +58,7 @@ const MainScreens = () => {
             />
           ),
         }}
-      />
+      />*/}
 
       <Tab.Screen
         name="Call"
@@ -75,7 +75,7 @@ const MainScreens = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/*<Tab.Screen
         name="more"
         component={MoreScreen}
         options={{
@@ -89,7 +89,7 @@ const MainScreens = () => {
             />
           ),
         }}
-      />
+      />*/}
     </Tab.Navigator>
   );
 };

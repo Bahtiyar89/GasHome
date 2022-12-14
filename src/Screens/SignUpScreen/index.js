@@ -13,6 +13,7 @@ import styles from './styles';
 import AuthContext from '../../context/auth/AuthContext';
 import Loading from '../../components/Loading';
 import CustomHeaderOne from '../../components/CustomHeaderOne';
+import CustomInputPhoneNumber from '../../components/CustomInputPhoneNumber';
 
 export default function SignUpScreen({navigation}) {
   const authContext = useContext(AuthContext);
@@ -29,12 +30,25 @@ export default function SignUpScreen({navigation}) {
   });
 
   const [passConf, setPassConf] = useState('');
+  const [maskedPhoneNumber, setMaskedPhoneNumber] = useState('');
 
   const onPassRevealConf = () => {};
 
   const handleFormSubmit = () => {
-    console.log('submitted', newuser);
-    signup(newuser, navigation);
+    let unmasked = maskedPhoneNumber.replace(/[|&;$%@"<>()+, ]/g, '');
+
+    signup(
+      {
+        first_name: newuser.first_name,
+        last_name: newuser.last_name,
+        middle_name: newuser.middle_name,
+        password: newuser.password,
+        address: newuser.address,
+        index: newuser.index,
+        phone_number: unmasked,
+      },
+      navigation,
+    );
   };
 
   return (
@@ -104,15 +118,12 @@ export default function SignUpScreen({navigation}) {
                 onChangeText={val => seTnewuser({...newuser, address: val})}
               />
 
-              <Text style={styles.legend}>Номер телефона</Text>
-              <TextInput
-                style={[styles.input]}
-                placeholderTextColor={'#999CA0'}
-                placeholder="+7 777 876 1212"
-                value={newuser.phone_number}
-                onChangeText={val =>
-                  seTnewuser({...newuser, phone_number: val})
-                }
+              <CustomInputPhoneNumber
+                labelText={'Номер телефона'}
+                onChangeInput={val => setMaskedPhoneNumber(val)}
+                inputText={maskedPhoneNumber}
+                inputType="numeric"
+                mask={true}
               />
 
               <Text style={styles.legend}>Пароль</Text>

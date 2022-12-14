@@ -77,7 +77,10 @@ const DetectorState = props => {
     dispatch({type: LOADING_DETECTOR, payload: true});
     doGet(`/user-devices-api/?`)
       .then(({data}) => {
-        getHistory(data[0]?.id);
+        dispatch({type: LOADING_DETECTOR, payload: false});
+        if (data.length != 0) {
+          getHistory(data[0]?.id);
+        }
       })
       .catch(error => {
         console.log('errorr ', JSON.stringify(error));
