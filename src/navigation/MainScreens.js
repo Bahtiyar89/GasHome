@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Image, StyleSheet, Text, View} from 'react-native';
-
+import {useTranslation} from 'react-i18next';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import OcticonsIcons from 'react-native-vector-icons/Octicons';
@@ -24,6 +24,7 @@ function HomeStackScreen() {
 }
 
 const MainScreens = () => {
+  const {t, i18n} = useTranslation();
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -31,7 +32,7 @@ const MainScreens = () => {
         component={HomeStackScreen}
         options={{
           headerShown: false,
-          title: 'Датчик',
+          title: t('t:sensor'),
           tabBarIcon: ({focused}) => (
             <Image
               source={require('../assets/sensor.png')} //Change your icon image here
@@ -65,7 +66,7 @@ const MainScreens = () => {
         component={CallScreen}
         options={{
           headerShown: false,
-          title: 'Вызов',
+          title: t('t:call'),
           tabBarIcon: ({focused}) => (
             <Ionicons
               name="md-call-outline"
@@ -75,12 +76,12 @@ const MainScreens = () => {
           ),
         }}
       />
-      {/*<Tab.Screen
+      <Tab.Screen
         name="more"
         component={MoreScreen}
         options={{
           headerShown: false,
-          title: 'Еще',
+          title: t('t:more'),
           tabBarIcon: ({focused}) => (
             <Ionicons
               style={{color: focused ? '#4d94ff' : '#666666'}}
@@ -89,7 +90,7 @@ const MainScreens = () => {
             />
           ),
         }}
-      />*/}
+      />
     </Tab.Navigator>
   );
 };

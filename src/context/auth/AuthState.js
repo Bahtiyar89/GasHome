@@ -34,12 +34,6 @@ const AuthState = props => {
         });
       })
       .catch(error => {
-        toast.show(JSON.stringify(error.response.data), {
-          type: 'warning',
-          duration: 3000,
-          animationType: 'zoom-in',
-        });
-
         dispatch({type: LOADING, payload: false});
       });
   };
@@ -55,8 +49,12 @@ const AuthState = props => {
         },
       })
       .then(({data}) => {
-        console.log('data: ', data);
         dispatch({type: LOADING, payload: false});
+        toast.show('Успешно зарегистрировались', {
+          type: 'success',
+          duration: 3000,
+          animationType: 'zoom-in',
+        });
         dispatch({
           type: SIGN_UP_SUCCESS,
           payload: FormData,

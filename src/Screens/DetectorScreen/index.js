@@ -9,10 +9,9 @@ import React, {
 import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
-import {Appbar, ProgressBar} from 'react-native-paper';
+import {Appbar} from 'react-native-paper';
 import {Dropdown} from 'sharingan-rn-modal-dropdown';
 import {useFocusEffect} from '@react-navigation/native';
-import AuthContext from '../../context/auth/AuthContext';
 import DetectorContext from '../../context/detector/DetectorContext';
 import defaultImage from '../../assets/defaultImage.jpg';
 import HomeBottomSheet from '../../components/HomeBottomSheet';
@@ -23,6 +22,7 @@ import Detector from './Detector';
 export default function DetectorScreen({navigation}) {
   const detectorContext = useContext(DetectorContext);
   const {
+    cleanDetector,
     getDevice,
     getHistory,
     getProfile,
@@ -89,6 +89,7 @@ export default function DetectorScreen({navigation}) {
       return () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
+        cleanDetector();
       };
     }, []),
   );

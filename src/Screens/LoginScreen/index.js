@@ -1,7 +1,15 @@
 import React, {Fragment, useContext, useState} from 'react';
-import {View, TextInput, Pressable, Text, SafeAreaView} from 'react-native';
+import {
+  View,
+  TextInput,
+  Pressable,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import styles from './styles';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useTranslation} from 'react-i18next';
 
 import AuthContext from '../../context/auth/AuthContext';
 import Loading from '../../components/Loading';
@@ -27,7 +35,7 @@ const LoginScreen = ({navigation}) => {
     let unmasked = maskedPhoneNumber.replace(/[+, ]/g, '');
     signin({password: user.password, phone_number: unmasked});
   };
-
+  const {t, i18n} = useTranslation();
   return (
     <Fragment>
       <Loading loading={loading} />
@@ -36,27 +44,29 @@ const LoginScreen = ({navigation}) => {
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>
           <View style={styles.container}>
-            <Text style={styles.haveAnAccountText}>У вас нет аккаунта?</Text>
+            <Text style={styles.haveAnAccountText}>{t('t:anAccont')}</Text>
             <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-              <Text style={styles.logInSignUpButton}>Регистрация</Text>
+              <Text style={styles.logInSignUpButton}>
+                {t('t:registration')}
+              </Text>
             </Pressable>
           </View>
           <View style={styles.titleContainer}>
             <Text style={[styles.title]}>
-              Привет, авторизуйся
-              <Text style={styles.blueColor}> Тут!</Text>
+              {t('t:login')}
+              <Text style={styles.blueColor}> {t('t:here')}</Text>
             </Text>
           </View>
 
           <CustomInputPhoneNumber
-            labelText={'Номер телефона'}
+            labelText={t('t:phoneNumber')}
             onChangeInput={val => setMaskedPhoneNumber(val)}
             inputText={maskedPhoneNumber}
             inputType="numeric"
             mask={true}
           />
 
-          <Text style={styles.legend}>Пароль</Text>
+          <Text style={styles.legend}>{t('t:password')}</Text>
           <View style={styles.inputWrapper}>
             <TextInput
               style={[styles.input]}
@@ -70,20 +80,22 @@ const LoginScreen = ({navigation}) => {
               onPress={() => setShowPassword(!showPassword)}
               style={styles.togglePassWrapper}>
               <Text style={styles.togglePassText}>
-                {showPassword ? 'показать' : 'скрыть'}
+                {showPassword ? t('t:show') : t('t:hide')}
               </Text>
             </Pressable>
           </View>
           <View style={{marginTop: 20}}>
             <Pressable onPress={submitLogin} style={[styles.completeButton]}>
-              <Text style={[styles.completeButtonText]}>Войти</Text>
+              <Text style={[styles.completeButtonText]}>{t('t:enter')}</Text>
             </Pressable>
-            <Pressable
+            <TouchableOpacity
               onPress={handleForgotPasswordScreen}
               hitSlop={6}
               style={styles.forgotPasswordButton}>
-              <Text style={styles.forgotPasswordButtonText}>Забыл пароль</Text>
-            </Pressable>
+              <Text style={styles.forgotPasswordButtonText}>
+                {t('t:forgotPassword')}
+              </Text>
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
       </KeyboardAwareScrollView>

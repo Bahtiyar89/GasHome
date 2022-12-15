@@ -5,6 +5,7 @@ import {ToastProvider} from 'react-native-toast-notifications';
 import Entrypoint from './src/Entrypoint';
 import AuthState from './src/context/auth/AuthState';
 import DetectorState from './src/context/detector/DetectorState';
+import './src/constants/DCSLocalize';
 
 const App = () => {
   return (

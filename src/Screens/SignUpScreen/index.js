@@ -6,6 +6,7 @@ import {
   Text,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -158,13 +159,13 @@ export default function SignUpScreen({navigation}) {
                 </Pressable>
               </View>
 
-              <Pressable
+              <TouchableOpacity
                 onPress={handleFormSubmit}
                 style={[styles.completeButton]}>
                 <Text style={styles.completeButtonText}>
                   Зарегистрироваться
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </SafeAreaView>

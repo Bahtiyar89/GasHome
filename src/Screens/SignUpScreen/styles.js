@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   },
   completeButton: {
     marginTop: 20,
+    marginBottom: 20,
     width: '100%',
     height: 40,
     alignItems: 'center',

@@ -10,11 +10,13 @@ import {
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Button} from 'react-native-paper';
+import {useTranslation} from 'react-i18next';
 
 import CustomHeaderOne from '../../components/CustomHeaderOne';
 import styles from './styles';
 
 export default function CallScreen({navigation}) {
+  const {t} = useTranslation();
   return (
     <Fragment>
       <CustomHeaderOne />
@@ -30,7 +32,7 @@ export default function CallScreen({navigation}) {
                 style={styles.secondButton}>
                 <Text
                   style={{marginLeft: 5, fontWeight: '700', color: 'white'}}>
-                  Вызвать МЧС
+                  {t('t:callMCS')}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -44,7 +46,7 @@ export default function CallScreen({navigation}) {
                 padding: 20,
                 borderRadius: 12,
               }}>
-              <Text style={{marginTop: 10}}>Электромагнитный клапан</Text>
+              <Text style={{marginTop: 10}}>{t('t:ElectromagneticValve')}</Text>
               <View
                 style={{
                   width: '95%',
@@ -56,13 +58,13 @@ export default function CallScreen({navigation}) {
                   uppercase={false}
                   mode="contained"
                   onPress={() => console.log('Pressed')}>
-                  Открыть
+                  {t('t:open')}
                 </Button>
                 <Button
                   uppercase={false}
                   mode="outlined"
                   onPress={() => console.log('Pressed')}>
-                  Закрыть
+                  {t('t:close')}
                 </Button>
               </View>
             </View>

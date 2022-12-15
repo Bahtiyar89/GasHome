@@ -74,10 +74,12 @@ const DetectorState = props => {
 
   //GET Device
   const getDevice = async () => {
+    console.log('33333: ');
     dispatch({type: LOADING_DETECTOR, payload: true});
     doGet(`/user-devices-api/?`)
       .then(({data}) => {
         dispatch({type: LOADING_DETECTOR, payload: false});
+        console.log('data:333 ', data);
         if (data.length != 0) {
           getHistory(data[0]?.id);
         }
