@@ -22,7 +22,7 @@ const data = [];
 
 export default function Detector({detectorHistory}) {
   const {t, i18n} = useTranslation();
-  console.log('detectorHistory: ', detectorHistory.length);
+
   const getCoOptions = () => {
     if (!detectorHistory) return [];
 
