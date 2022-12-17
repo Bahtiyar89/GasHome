@@ -1,7 +1,9 @@
 import React, {Fragment} from 'react';
 import {View, Text} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 export default function DetectorBottom() {
+  const {t, i18n} = useTranslation();
   return (
     <Fragment>
       <View
@@ -12,7 +14,7 @@ export default function DetectorBottom() {
           backgroundColor: '#fff',
           alignItems: 'center',
         }}>
-        <Text>Электромагнитный клапан</Text>
+        <Text>{t('t:ElectromagneticValve')}</Text>
         <View
           style={{
             marginTop: 10,
@@ -28,11 +30,11 @@ export default function DetectorBottom() {
               borderColor: '#27C69F',
               height: 18,
             }}>
-            <Text style={{color: '#27C69F'}}>Открыть</Text>
+            <Text style={{color: '#27C69F'}}>{t('t:open')}</Text>
           </View>
 
           <View>
-            <Text>Последнее переключение</Text>
+            <Text>{t('t:lastSwitch')}</Text>
             <Text style={{textAlign: 'right'}}>25.04.2022 15:45</Text>
           </View>
         </View>

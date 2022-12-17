@@ -19,6 +19,7 @@ import CustomInputPhoneNumber from '../../components/CustomInputPhoneNumber';
 const LoginScreen = ({navigation}) => {
   const authContext = useContext(AuthContext);
   const {signin, loading} = authContext;
+  const {t} = useTranslation();
 
   const [user, seTuser] = useState({
     phone_number: '',
@@ -35,7 +36,7 @@ const LoginScreen = ({navigation}) => {
     let unmasked = maskedPhoneNumber.replace(/[+, ]/g, '');
     signin({password: user.password, phone_number: unmasked});
   };
-  const {t, i18n} = useTranslation();
+
   return (
     <Fragment>
       <Loading loading={loading} />

@@ -18,8 +18,6 @@ import {BarChart} from 'react-native-gifted-charts';
 
 import DetectorBottom from './DetectorBottom';
 
-const data = [];
-
 export default function Detector({detectorHistory}) {
   const {t, i18n} = useTranslation();
 
@@ -60,10 +58,15 @@ export default function Detector({detectorHistory}) {
   };
   getCoOptions();
 
+  const data = [
+    {name: t('t:hydrocarbons'), symbol: {fill: 'grey'}},
+    {name: t('t:methane'), symbol: {fill: 'orange'}},
+    {name: t('t:charge'), symbol: {fill: '#6D87D6'}},
+  ];
   return (
     <Fragment>
       <Text style={{textAlign: 'center', marginTop: 20, fontWeight: 'bold'}}>
-        Датчик
+        {t('t:hydrocarbons')}
       </Text>
 
       {detectorHistory.length === 0 ? (
@@ -75,13 +78,9 @@ export default function Detector({detectorHistory}) {
             x={Dimensions.get('screen').width / 3 - 80}
             orientation={'horizontal'}
             gutter={20}
-            data={[
-              {name: 'Углеводороды', symbol: {fill: 'grey'}},
-              {name: 'Метан', symbol: {fill: 'orange'}},
-              {name: 'Заряд', symbol: {fill: '#6D87D6'}},
-            ]}
+            data={data}
           />
-          <VictoryAxis tickFormat={['Месяца']} />
+          <VictoryAxis tickFormat={t('t:months')} />
           <VictoryAxis
             dependentAxis
             label={t('t:meaning')}
@@ -111,11 +110,7 @@ export default function Detector({detectorHistory}) {
             x={Dimensions.get('screen').width / 3 - 80}
             orientation={'horizontal'}
             gutter={20}
-            data={[
-              {name: 'Углеводороды', symbol: {fill: 'grey'}},
-              {name: 'Метан', symbol: {fill: 'orange'}},
-              {name: 'Заряд', symbol: {fill: '#6D87D6'}},
-            ]}
+            data={data}
           />
         </VictoryChart>
       )}

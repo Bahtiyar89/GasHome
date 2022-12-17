@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   togglePassText: {
     fontFamily: 'TransatStandard',
-    color: Colors.black,
+    color: Colors.white,
     textDecorationLine: 'underline',
     fontSize: 16,
   },
