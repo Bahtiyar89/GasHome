@@ -19,6 +19,7 @@ import {BarChart} from 'react-native-gifted-charts';
 import DetectorBottom from './DetectorBottom';
 
 export default function Detector({detectorHistory}) {
+  console.log('detectorHistory::: 44 ', detectorHistory);
   const {t, i18n} = useTranslation();
 
   const getCoOptions = () => {
@@ -88,8 +89,8 @@ export default function Detector({detectorHistory}) {
           />
         </VictoryChart>
       ) : (
-        <VictoryChart domainPadding={10}>
-          <VictoryAxis label={''} style={{axisLabel: {padding: 30}}} />
+        <VictoryChart domainPadding={40}>
+          <VictoryAxis label={''} style={{axisLabel: {padding: 0}}} />
           <VictoryAxis
             dependentAxis
             label={t('t:meaning')}
@@ -107,7 +108,7 @@ export default function Detector({detectorHistory}) {
             />
           </VictoryGroup>
           <VictoryLegend
-            x={Dimensions.get('screen').width / 3 - 80}
+            x={Dimensions.get('screen').width / 4 - 80}
             orientation={'horizontal'}
             gutter={20}
             data={data}

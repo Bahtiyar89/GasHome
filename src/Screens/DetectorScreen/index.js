@@ -8,7 +8,8 @@ import React, {
 } from 'react';
 import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import styles from './styles';
+
+import {useTranslation} from 'react-i18next';
 import {Appbar} from 'react-native-paper';
 import {Dropdown} from 'sharingan-rn-modal-dropdown';
 import {useFocusEffect} from '@react-navigation/native';
@@ -18,9 +19,11 @@ import HomeBottomSheet from '../../components/HomeBottomSheet';
 import CustomModal from '../../components/CustomLoading';
 import Client from './Client';
 import Detector from './Detector';
+import styles from './styles';
 
 export default function DetectorScreen({navigation}) {
   const detectorContext = useContext(DetectorContext);
+  const {t, i18n} = useTranslation();
   const {
     cleanDetector,
     getDevice,
@@ -34,28 +37,28 @@ export default function DetectorScreen({navigation}) {
   const data = [
     {
       value: 'detector',
-      label: 'Датчик',
+      label: t('t:sensor'),
     },
     {
       value: 'client',
-      label: 'Клиент',
+      label: t('t:client'),
     },
   ];
   const [lang, seTlang] = useState({
     value: 'detector',
-    label: 'Датчик',
+    label: t('t:sensor'),
   });
   const onChangeLanguage = language => {
     if (language === 'client') {
       getProfile();
       seTlang({
         value: 'client',
-        label: 'Клиент',
+        label: t('t:client'),
       });
     } else {
       seTlang({
         value: 'detector',
-        label: 'Датчик',
+        label: t('t:sensor'),
       });
     }
   };

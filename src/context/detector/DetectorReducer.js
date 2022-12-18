@@ -15,7 +15,13 @@ export default (state, action) => {
     case UPDATE_PROFILE:
       return {...state, profile: action.payload};
     case GET_HISTORY_DEVICE:
-      return {...state, detectorHistory: action.payload};
+      let newOs = Object.assign([], action.payload);
+      console.log('newOs: ', newOs);
+      console.log('state.detectorHistory: ', state.detectorHistory);
+      return {
+        ...state,
+        detectorHistory: state.detectorHistory.concat(newOs),
+      };
     case CLEAR_DETECTOR:
       return {...state, profile: null, detectorHistory: []};
     default:

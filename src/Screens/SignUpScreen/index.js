@@ -84,32 +84,31 @@ export default function SignUpScreen({navigation}) {
     let errors = [];
     errors = validate();
     if (errors === null || errors === undefined || errors.length === 0) {
+      let unmasked = maskedPhoneNumber.replace(/[|&;$%@"<>()+, ]/g, '');
+
+      signup(
+        {
+          first_name: newuser.first_name,
+          last_name: newuser.last_name,
+          middle_name: newuser.middle_name,
+          password: newuser.password,
+          address: newuser.address,
+          index: newuser.index,
+          phone_number: unmasked,
+        },
+        navigation,
+      );
+    } else {
+      console.log('errors: ', errors);
+      const ans_array = errors.toString().split(',').join('\n');
+
+      console.log('errors:', ans_array);
+      toast.show(ans_array, {
+        type: 'warning',
+        duration: 3000,
+        animationType: 'zoom-in',
+      });
     }
-
-    console.log('errors: ', errors);
-    const ans_array = errors.toString().split(',').join('\n');
-
-    console.log('errors:', ans_array);
-    toast.show(ans_array, {
-      type: 'warning',
-      duration: 3000,
-      animationType: 'zoom-in',
-    });
-    /*
-    let unmasked = maskedPhoneNumber.replace(/[|&;$%@"<>()+, ]/g, '');
-
-    signup(
-      {
-        first_name: newuser.first_name,
-        last_name: newuser.last_name,
-        middle_name: newuser.middle_name,
-        password: newuser.password,
-        address: newuser.address,
-        index: newuser.index,
-        phone_number: unmasked,
-      },
-      navigation,
-    );*/
   };
 
   return (

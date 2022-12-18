@@ -1,16 +1,16 @@
 import React, {useReducer} from 'react';
 import axios from 'axios';
 import {useToast} from 'react-native-toast-notifications';
-
+import {useTranslation} from 'react-i18next';
 import AuthContext from './AuthContext';
 import AuthReducer from './AuthReducer';
 import {doPost} from '../../utils/apiActions';
 
 import {LOGIN_SUCCESS, LOADING, SIGN_UP_SUCCESS, LOGOUT} from '../types';
-import utility from '../../utils/Utility';
 
 const AuthState = props => {
   const toast = useToast();
+  const {t} = useTranslation();
   const initialState = {
     user: null,
     loading: false,
@@ -34,6 +34,11 @@ const AuthState = props => {
         });
       })
       .catch(error => {
+        toast.show(t('t:wrongEmailOrLogin'), {
+          type: 'warning',
+          duration: 1000,
+          animationType: 'zoom-in',
+        });
         dispatch({type: LOADING, payload: false});
       });
   };
@@ -62,8 +67,11 @@ const AuthState = props => {
         navigation.navigate('LoginScreen');
       })
       .catch(error => {
-        console.log('error: 2', error.response.data);
-
+        toast.show(error?.response?.data, {
+          type: 'warning',
+          duration: 1000,
+          animationType: 'zoom-in',
+        });
         dispatch({type: LOADING, payload: false});
       });
   };

@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 export default function Client({profile}) {
-  console.log('pr: ', profile);
+  const {t, i18n} = useTranslation();
   return (
     <View
       style={{
@@ -12,7 +13,7 @@ export default function Client({profile}) {
         backgroundColor: '#fff',
         alignItems: 'center',
       }}>
-      <Text style={{marginTop: 10}}>Клиент</Text>
+      <Text style={{marginTop: 10}}>{t('t:client')}</Text>
       <Text
         style={{
           padding: 5,

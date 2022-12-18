@@ -86,9 +86,11 @@ const LoginScreen = ({navigation}) => {
             </Pressable>
           </View>
           <View style={{marginTop: 20}}>
-            <Pressable onPress={submitLogin} style={[styles.completeButton]}>
+            <TouchableOpacity
+              onPress={submitLogin}
+              style={[styles.completeButton]}>
               <Text style={[styles.completeButtonText]}>{t('t:enter')}</Text>
-            </Pressable>
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={handleForgotPasswordScreen}
               hitSlop={6}
