@@ -19,7 +19,6 @@ import {BarChart} from 'react-native-gifted-charts';
 import DetectorBottom from './DetectorBottom';
 
 export default function Detector({detectorHistory}) {
-  console.log('detectorHistory::: 44 ', detectorHistory);
   const {t, i18n} = useTranslation();
 
   const getCoOptions = () => {

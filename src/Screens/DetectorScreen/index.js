@@ -32,6 +32,7 @@ export default function DetectorScreen({navigation}) {
     profile,
     loading_detector,
     detectorHistory,
+    detectors,
   } = detectorContext;
 
   const data = [
@@ -62,6 +63,12 @@ export default function DetectorScreen({navigation}) {
       });
     }
   };
+
+  const onChangeDevice = imei => {
+    console.log('imei: ', imei);
+    getHistory(imei);
+  };
+
   const barData = [
     {value: 250, label: 'M'},
     {value: 500, label: 'T', frontColor: '#177AD5'},
@@ -100,7 +107,7 @@ export default function DetectorScreen({navigation}) {
   const handlePress = () => {
     ref.current.show();
   };
-
+  console.log('detectors: ', detectors);
   return (
     <Fragment>
       {loading_detector && <CustomModal loading={loading_detector} />}
@@ -138,14 +145,20 @@ export default function DetectorScreen({navigation}) {
           <View
             style={{marginTop: 10, flexDirection: 'row', alignItems: 'center'}}>
             <Dropdown
-              mainContainerStyle={{width: '50%'}}
+              mainContainerStyle={{width: '90%'}}
               label=""
               data={data}
               enableAvatar
               value={lang.value}
               onChange={onChangeLanguage}
             />
-            <Text>2/3</Text>
+            <Dropdown
+              mainContainerStyle={{width: '90%'}}
+              label="Устройство"
+              data={detectors}
+              value={lang.value}
+              onChange={onChangeDevice}
+            />
           </View>
           {lang.value === 'detector' && (
             <Detector detectorHistory={detectorHistory} barData={barData} />

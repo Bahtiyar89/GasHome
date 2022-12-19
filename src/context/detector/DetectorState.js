@@ -5,13 +5,7 @@ import DetectorContext from './DetectorContext';
 import DetectorReducer from './DetectorReducer';
 import {doGet, doPost, doPatch} from '../../utils/apiActions';
 
-import {
-  LOADING_DETECTOR,
-  GET_PROFILE,
-  GET_HISTORY_DEVICE,
-  CLEAR_DETECTOR,
-  UPDATE_PROFILE,
-} from '../types';
+import * as types from './types';
 
 const DetectorState = props => {
   const toast = useToast();
@@ -19,6 +13,7 @@ const DetectorState = props => {
     profile: null,
     loading_detector: false,
     error: false,
+    detectors: [],
     detectorHistory: [],
   };
 
@@ -26,106 +21,98 @@ const DetectorState = props => {
 
   //Profile User
   const getProfile = async () => {
-    dispatch({type: LOADING_DETECTOR, payload: true});
+    dispatch({type: types.LOADING_DETECTOR, payload: true});
     doGet('/accounts/profile-api/')
       .then(({data}) => {
-        console.log('data 55: ', data);
         dispatch({
-          type: GET_PROFILE,
+          type: types.GET_PROFILE,
           payload: data,
         });
-        dispatch({type: LOADING_DETECTOR, payload: false});
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
       })
       .catch(error => {
-        console.log('errorr ', JSON.stringify(error));
         toast.show(JSON.stringify(error.message), {
           type: 'warning',
           duration: 3000,
           animationType: 'zoom-in',
         });
 
-        dispatch({type: LOADING_DETECTOR, payload: false});
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
       });
   };
 
   //GET History
-  const getHistory = async id => {
-    console.log('id history: ', id);
-    dispatch({type: LOADING_DETECTOR, payload: true});
-    doGet(`/device-api/${id}/`)
+  const getHistory = async imei => {
+    dispatch({type: types.LOADING_DETECTOR, payload: true});
+    doGet(`/device-api/${imei}/`)
       .then(({data}) => {
         dispatch({
-          type: GET_HISTORY_DEVICE,
+          type: types.GET_HISTORY_DEVICE,
           payload: data,
         });
-        dispatch({type: LOADING_DETECTOR, payload: false});
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
       })
       .catch(error => {
-        console.log('errorr ', JSON.stringify(error));
         toast.show(JSON.stringify(error.message), {
           type: 'warning',
           duration: 3000,
           animationType: 'zoom-in',
         });
 
-        dispatch({type: LOADING_DETECTOR, payload: false});
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
       });
   };
 
   //GET Device
   const getDevice = async () => {
-    dispatch({type: LOADING_DETECTOR, payload: true});
+    dispatch({type: types.LOADING_DETECTOR, payload: true});
     doGet(`/user-devices-api/?`)
       .then(({data}) => {
-        console.log('device: ', data);
-        dispatch({type: LOADING_DETECTOR, payload: false});
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
         if (data.length != 0) {
-          for (let index = 0; index < data.length; index++) {
-            const element = data[index];
-            getHistory(element?.imei);
-          }
+          dispatch({type: types.DETECTORS, payload: data});
+          getHistory(data[0]?.imei);
         }
       })
       .catch(error => {
-        console.log('errorr ', JSON.stringify(error));
         toast.show(JSON.stringify(error.message), {
           type: 'warning',
           duration: 3000,
           animationType: 'zoom-in',
         });
 
-        dispatch({type: LOADING_DETECTOR, payload: false});
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
       });
   };
 
   //PATCH Profile
   const patchProfile = async formData => {
-    dispatch({type: LOADING_DETECTOR, payload: true});
+    dispatch({type: types.LOADING_DETECTOR, payload: true});
     doPatch(`/accounts/profile-api/`, formData)
       .then(({data}) => {
-        dispatch({type: UPDATE_PROFILE, payload: data});
+        dispatch({type: types.UPDATE_PROFILE, payload: data});
       })
       .catch(error => {
-        console.log('errorr ', JSON.stringify(error));
         toast.show(JSON.stringify(error.message), {
           type: 'warning',
           duration: 3000,
           animationType: 'zoom-in',
         });
 
-        dispatch({type: LOADING_DETECTOR, payload: false});
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
       });
   };
 
   //Clean Profile
   const cleanDetector = async () => {
-    dispatch({type: CLEAR_DETECTOR});
+    dispatch({type: types.CLEAR_DETECTOR});
   };
 
   return (
     <DetectorContext.Provider
       value={{
         loading_detector: state.loading_detector,
+        detectors: state.detectors,
         detectorHistory: state.detectorHistory,
         error: state.error,
         profile: state.profile,

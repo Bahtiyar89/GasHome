@@ -1,5 +1,3 @@
-export const CLEAR_ERRORS = 'CLEAR_ERRORS';
-//Auth
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
@@ -7,12 +5,6 @@ export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAIL = 'SIGN_UP_FAIL';
 export const LOADING = 'LOADING';
 
-//Detector screen
-export const GET_PROFILE = 'GET_PROFILE';
-export const GET_HISTORY_DEVICE = 'GET_HISTORY_DEVICE';
-export const LOADING_DETECTOR = 'LOADING_DETECTOR';
-export const UPDATE_PROFILE = 'UPDATE_PROFILE';
-export const CLEAR_DETECTOR = 'CLEAN_DETECTOR';
 // F4
 export const F4_POST_SUCC_BALANCE = 'F4_POST_SUCC_BALANCE';
 export const F4_POST_BALANCE = 'F4_POST_BALANCE';
