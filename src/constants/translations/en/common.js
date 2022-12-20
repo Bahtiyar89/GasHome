@@ -41,4 +41,7 @@ export default {
   months: 'Months',
   lastSwitch: 'Last switch',
   wrongEmailOrLogin: 'Email or password wrong!',
+  device: 'Устройство',
+  chooseAppLanguage: 'Choose app language',
+  chooseLanguage: 'Choose a language',
 };

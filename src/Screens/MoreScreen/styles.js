@@ -206,12 +206,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#000',
     paddingVertical: 4,
+    textAlign: 'center',
+    color: '#fff',
   },
   selectedText: {
     fontSize: 18,
     fontWeight: '600',
     color: 'tomato',
     paddingVertical: 4,
+    textAlign: 'center',
   },
 });
 

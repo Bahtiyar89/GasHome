@@ -49,6 +49,9 @@ export default function DetectorScreen({navigation}) {
     value: 'detector',
     label: t('t:sensor'),
   });
+
+  const [imei, setImei] = useState(null);
+
   const onChangeLanguage = language => {
     if (language === 'client') {
       getProfile();
@@ -64,9 +67,9 @@ export default function DetectorScreen({navigation}) {
     }
   };
 
-  const onChangeDevice = imei => {
-    console.log('imei: ', imei);
-    getHistory(imei);
+  const onChangeDevice = im => {
+    setImei(im);
+    getHistory(im);
   };
 
   const barData = [
@@ -107,7 +110,7 @@ export default function DetectorScreen({navigation}) {
   const handlePress = () => {
     ref.current.show();
   };
-  console.log('detectors: ', detectors);
+
   return (
     <Fragment>
       {loading_detector && <CustomModal loading={loading_detector} />}
@@ -154,9 +157,9 @@ export default function DetectorScreen({navigation}) {
             />
             <Dropdown
               mainContainerStyle={{width: '90%'}}
-              label="Устройство"
+              label={t('t:device')}
               data={detectors}
-              value={lang.value}
+              value={imei === null ? detectors[0]?.value : imei}
               onChange={onChangeDevice}
             />
           </View>

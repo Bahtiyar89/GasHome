@@ -35,8 +35,6 @@ const LANGUAGE_DETECTOR = {
     console.log('callback: ');
   },
   cacheUserLanguage: language => {
-    console.log('11111c : ', language);
-
     AsyncStorage.setItem('user-language', language);
   },
 };

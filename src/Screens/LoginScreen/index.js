@@ -1,4 +1,4 @@
-import React, {Fragment, useContext, useState} from 'react';
+import React, {useEffect, Fragment, useContext, useState} from 'react';
 import {
   View,
   TextInput,
@@ -11,6 +11,7 @@ import styles from './styles';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTranslation} from 'react-i18next';
 
+import utility from '../../utils/Utility';
 import AuthContext from '../../context/auth/AuthContext';
 import Loading from '../../components/Loading';
 import CustomHeaderOne from '../../components/CustomHeaderOne';
@@ -34,8 +35,29 @@ const LoginScreen = ({navigation}) => {
 
   const submitLogin = async () => {
     let unmasked = maskedPhoneNumber.replace(/[+, ]/g, '');
+    utility.setItemObject('keys', {
+      password: user.password,
+      phone_number: maskedPhoneNumber,
+    });
     signin({password: user.password, phone_number: unmasked});
   };
+
+  async function encrypData() {
+    await utility.getItemObject('keys').then(keys => {
+      console.log('keys: ', keys);
+      if (keys) {
+        seTuser({
+          ...user,
+          password: keys.password,
+        });
+        setMaskedPhoneNumber(keys.phone_number);
+      }
+    });
+  }
+
+  useEffect(() => {
+    encrypData();
+  }, []);
 
   return (
     <Fragment>

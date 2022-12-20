@@ -17,9 +17,6 @@ export default (state = INITIAL_STATE, action) => {
     case types.UPDATE_PROFILE:
       return {...state, profile: action.payload};
     case types.GET_HISTORY_DEVICE:
-      let newOs = Object.assign([], action.payload);
-      console.log('newOs: ', newOs);
-      console.log('state.detectorHistory: ', state.detectorHistory);
       return {...state, detectorHistory: action.payload};
     case types.DETECTORS:
       const newDetectors = [];
