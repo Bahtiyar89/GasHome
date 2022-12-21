@@ -79,7 +79,7 @@ export default function SignUpScreen({navigation}) {
 
     return errors;
   };
-  console.log('newuser.first_name: ', newuser.first_name);
+
   const handleFormSubmit = () => {
     let errors = [];
     errors = validate();

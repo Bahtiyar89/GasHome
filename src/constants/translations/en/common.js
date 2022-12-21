@@ -44,4 +44,7 @@ export default {
   device: 'Устройство',
   chooseAppLanguage: 'Choose app language',
   chooseLanguage: 'Choose a language',
+  currentValveStatus: 'Current valve status',
+  selectDevice: 'Bыберите устройство',
+  selectDevice: 'Select device',
 };

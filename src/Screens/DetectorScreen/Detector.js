@@ -114,7 +114,7 @@ export default function Detector({detectorHistory}) {
           />
         </VictoryChart>
       )}
-      <DetectorBottom />
+      <DetectorBottom detectorHistory={detectorHistory} />
     </Fragment>
   );
 }

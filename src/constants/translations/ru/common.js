@@ -44,4 +44,6 @@ export default {
   device: 'Устройство',
   chooseAppLanguage: 'Выбрать язык приложения',
   chooseLanguage: 'Выбрать язык',
+  currentValveStatus: 'Cтатус текущего клапана',
+  selectDevice: 'Bыберите устройство',
 };
