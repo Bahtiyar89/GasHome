@@ -7,10 +7,12 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useFocusEffect} from '@react-navigation/native';
 import {Appbar, Button} from 'react-native-paper';
+import {useTranslation} from 'react-i18next';
 
 import ShevronLeft from '../../assets/chevron-left';
 import DetectorContext from '../../context/detector/DetectorContext';
@@ -20,6 +22,7 @@ import MainStyle from '../../utils/MainStyle';
 import styles from './styles';
 
 export default function ProfileScreen({navigation}) {
+  const {t, i18n} = useTranslation();
   const detectorContext = useContext(DetectorContext);
   const {getProfile, profile, loading_detector, cleanDetector, patchProfile} =
     detectorContext;
@@ -60,30 +63,31 @@ export default function ProfileScreen({navigation}) {
       };
     }, []),
   );
-  console.log('updateUser.phone_number: ', updateUser.phone_number);
+
   const saveEdit = () => {
     patchProfile(updateUser);
     navigation.goBack();
   };
+
   return (
     <Fragment>
       {/*loading_detector && <CustomModal loading={loading_detector} />*/}
 
       <Appbar.Header style={MainStyle.appBarThreeItems}>
-        <Pressable
+        <TouchableOpacity
           style={{alignSelf: 'center'}}
           onPress={() => navigation.goBack()}>
           <ShevronLeft />
-        </Pressable>
+        </TouchableOpacity>
         <View style={MainStyle.appBarThreeDevider}>
-          <Text style={MainStyle.textSize}>Профиль</Text>
+          <Text style={MainStyle.textSize}>{t('t:profile')}</Text>
           {editable ? (
             <Pressable onPress={saveEdit}>
-              <Text style={MainStyle.lastItem}>Сохранить</Text>
+              <Text style={MainStyle.lastItem}>{t('t:save')}</Text>
             </Pressable>
           ) : (
             <Pressable onPress={() => seTeditable(true)}>
-              <Text style={MainStyle.lastItem}>Pедактировать</Text>
+              <Text style={MainStyle.lastItem}>{t('t:edit')}</Text>
             </Pressable>
           )}
         </View>
@@ -91,7 +95,7 @@ export default function ProfileScreen({navigation}) {
       <KeyboardAwareScrollView>
         <SafeAreaView style={styles.screen}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
-            <Text style={styles.legend}>Фамилия</Text>
+            <Text style={styles.legend}>{t('t:surname')}</Text>
             <TextInput
               style={[styles.input]}
               editable={editable}
@@ -103,7 +107,7 @@ export default function ProfileScreen({navigation}) {
               }
             />
 
-            <Text style={styles.legend}>Имя</Text>
+            <Text style={styles.legend}>{t('t:name')}</Text>
             <TextInput
               editable={editable}
               style={[styles.input]}
@@ -115,7 +119,7 @@ export default function ProfileScreen({navigation}) {
               }
             />
 
-            <Text style={styles.legend}>Отчество</Text>
+            <Text style={styles.legend}>{t('t:middleName')}</Text>
             <TextInput
               editable={editable}
               style={[styles.input]}
@@ -127,7 +131,7 @@ export default function ProfileScreen({navigation}) {
               }
             />
 
-            <Text style={styles.legend}>Индекс</Text>
+            <Text style={styles.legend}>{t('t:index')}</Text>
             <TextInput
               editable={editable}
               style={[styles.input]}
@@ -136,7 +140,7 @@ export default function ProfileScreen({navigation}) {
               value={updateUser.index}
               onChangeText={val => seTupdateUser({...updateUser, index: val})}
             />
-            <Text style={styles.legend}>Адрес</Text>
+            <Text style={styles.legend}>{t('t:address')}</Text>
             <TextInput
               editable={editable}
               style={[styles.input]}
@@ -146,7 +150,7 @@ export default function ProfileScreen({navigation}) {
               onChangeText={val => seTupdateUser({...updateUser, address: val})}
             />
 
-            <Text style={styles.legend}>Номер телефона</Text>
+            <Text style={styles.legend}>{t('t:phoneNumber')}</Text>
             <TextInput
               editable={editable}
               style={[styles.input]}

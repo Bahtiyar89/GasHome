@@ -46,4 +46,7 @@ export default {
   chooseLanguage: 'Выбрать язык',
   currentValveStatus: 'Cтатус текущего клапана',
   selectDevice: 'Bыберите устройство',
+  profile: 'Профиль',
+  save: 'Сохранить',
+  edit: 'Pедактировать',
 };

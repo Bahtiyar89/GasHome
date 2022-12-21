@@ -9,6 +9,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     borderBottomWidth: 1,
     borderBottomColor: '#003143',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   appBarThreeDevider: {
     width: '60%',

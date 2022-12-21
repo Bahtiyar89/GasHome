@@ -14,8 +14,9 @@ const styles = StyleSheet.create({
   },
   screen: {
     flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   container: {
     alignSelf: 'flex-end',
