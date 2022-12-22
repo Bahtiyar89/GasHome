@@ -11,13 +11,11 @@ import {
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useFocusEffect} from '@react-navigation/native';
-import {Appbar, Button} from 'react-native-paper';
+import {Appbar} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 
 import ShevronLeft from '../../assets/chevron-left';
 import DetectorContext from '../../context/detector/DetectorContext';
-import Colors from '../../constants/Сolors';
-import CustomModal from '../../components/CustomLoading';
 import MainStyle from '../../utils/MainStyle';
 import styles from './styles';
 
@@ -82,13 +80,13 @@ export default function ProfileScreen({navigation}) {
         <View style={MainStyle.appBarThreeDevider}>
           <Text style={MainStyle.textSize}>{t('t:profile')}</Text>
           {editable ? (
-            <Pressable onPress={saveEdit}>
+            <TouchableOpacity onPress={saveEdit}>
               <Text style={MainStyle.lastItem}>{t('t:save')}</Text>
-            </Pressable>
+            </TouchableOpacity>
           ) : (
-            <Pressable onPress={() => seTeditable(true)}>
+            <TouchableOpacity onPress={() => seTeditable(true)}>
               <Text style={MainStyle.lastItem}>{t('t:edit')}</Text>
-            </Pressable>
+            </TouchableOpacity>
           )}
         </View>
       </Appbar.Header>

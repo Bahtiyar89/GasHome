@@ -50,4 +50,7 @@ export default {
   profile: 'Profile',
   save: 'Save',
   edit: 'Edit',
+  help: 'Help',
+  viewProfile: 'View Profile',
+  signOut: 'Sign Out',
 };

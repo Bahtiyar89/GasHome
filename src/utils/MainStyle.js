@@ -13,13 +13,14 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   appBarThreeDevider: {
-    width: '60%',
+    width: '75%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   lastItem: {
     textTransform: 'uppercase',
+    fontWeight: '600',
     color: Colors.blue,
   },
   textSize: {

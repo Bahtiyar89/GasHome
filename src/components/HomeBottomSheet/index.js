@@ -1,9 +1,11 @@
 import React, {forwardRef, memo, useContext} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 //import auth from '@react-native-firebase/auth';
 //import {useDispatch} from 'react-redux';
 //import {clearState} from '../../store/user/actions';
 import BottomSheet from 'react-native-gesture-bottom-sheet';
+import {useTranslation} from 'react-i18next';
+
 import AuthContext from '../../context/auth/AuthContext';
 import DetectorContext from '../../context/detector/DetectorContext';
 
@@ -16,6 +18,7 @@ const HomeBottomSheet = forwardRef(({image, navigation}, ref) => {
   const authContext = useContext(AuthContext);
   const {signout} = authContext;
   const detectorContext = useContext(DetectorContext);
+  const {t} = useTranslation();
 
   const closeBottomSheet = () => {
     ref.current.close();
@@ -34,6 +37,7 @@ const HomeBottomSheet = forwardRef(({image, navigation}, ref) => {
   const handleSignOut = () => {
     signout();
   };
+
   return (
     <BottomSheet
       dragIconStyle={{width: 98}}
@@ -46,20 +50,29 @@ const HomeBottomSheet = forwardRef(({image, navigation}, ref) => {
       dragIconColor={Colors.blue}>
       <View style={styles.container}>
         <TouchableOpacity
-          style={[styles.button, styles.homeButton]}
+          style={[styles.button, styles.buttonWithBorders]}
           onPress={handleProfileScreen}>
-          <View style={styles.imageWrapper}>{image}</View>
-          <Text style={styles.text}>View Profile</Text>
+          <View style={{marginRight: 10}}>
+            <Image
+              style={{
+                width: 20,
+                height: 20,
+              }}
+              source={require('../../assets/profile.png')}
+            />
+          </View>
+
+          <Text style={styles.text}>{t('t:viewProfile')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={handleHelp}
           style={[styles.button, styles.buttonWithBorders]}>
           <HelpIcon />
           <Text style={styles.text}>Help</Text>
-        </TouchableOpacity>
+  </TouchableOpacity>*/}
         <TouchableOpacity onPress={handleSignOut} style={styles.button}>
           <SignOutIcon />
-          <Text style={styles.text}>Sign Out</Text>
+          <Text style={styles.text}>{t('t:signOut')}</Text>
         </TouchableOpacity>
       </View>
     </BottomSheet>

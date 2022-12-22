@@ -83,15 +83,6 @@ export default function DetectorScreen({navigation}) {
   ];
   const ref = useRef(null);
   const profilePicture = null;
-  const renderImage = useCallback(() => {
-    return (
-      <Image srouce={defaultImage} style={{width: '100%', height: '100%'}} />
-    );
-  }, [profilePicture]);
-
-  useEffect(() => {
-    renderImage();
-  }, [renderImage]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -136,11 +127,7 @@ export default function DetectorScreen({navigation}) {
             style={{height: 30, width: 30}}
           />
         </TouchableOpacity>
-        <HomeBottomSheet
-          ref={ref}
-          navigation={navigation}
-          image={renderImage()}
-        />
+        <HomeBottomSheet ref={ref} navigation={navigation} />
       </Appbar.Header>
 
       <KeyboardAwareScrollView>

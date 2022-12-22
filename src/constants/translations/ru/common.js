@@ -49,4 +49,7 @@ export default {
   profile: 'Профиль',
   save: 'Сохранить',
   edit: 'Pедактировать',
+  help: 'Помощь',
+  viewProfile: 'Посмотреть профиль',
+  signOut: 'Выйти',
 };
