@@ -39,7 +39,7 @@ export default function ProfileScreen({navigation}) {
   useMemo(() => {
     seTupdateUser({
       ...updateUser,
-      last_name: profile?.address,
+      last_name: profile?.last_name,
       first_name: profile?.first_name,
       address: profile?.address,
       id: profile?.id?.toString(),
@@ -64,6 +64,7 @@ export default function ProfileScreen({navigation}) {
 
   const saveEdit = () => {
     patchProfile(updateUser);
+    getProfile();
     navigation.goBack();
   };
 

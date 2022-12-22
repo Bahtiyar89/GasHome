@@ -88,6 +88,7 @@ export default function DetectorScreen({navigation}) {
     React.useCallback(() => {
       // Do something when the screen is focused
       getDevice();
+      getProfile();
       // getHistory(7);
 
       return () => {
@@ -102,6 +103,7 @@ export default function DetectorScreen({navigation}) {
     ref.current.show();
   };
 
+  console.log('444 : ', profile);
   return (
     <Fragment>
       {loading_detector && <CustomModal loading={loading_detector} />}

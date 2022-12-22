@@ -4,6 +4,8 @@ import {useTranslation} from 'react-i18next';
 
 export default function Client({profile}) {
   const {t, i18n} = useTranslation();
+  console.log('profile: 00', profile);
+
   return (
     <View
       style={{
@@ -32,7 +34,7 @@ export default function Client({profile}) {
           marginTop: 10,
           backgroundColor: '#f2f2f2',
         }}>
-        {profile?.phone_number}
+        +{profile?.phone_number}
       </Text>
       <Text
         style={{
