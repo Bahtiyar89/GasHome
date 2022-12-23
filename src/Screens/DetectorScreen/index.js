@@ -6,7 +6,14 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
-import {View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {useTranslation} from 'react-i18next';
@@ -114,10 +121,14 @@ export default function DetectorScreen({navigation}) {
           justifyContent: 'space-between',
           height: 30,
         }}>
-        <Image
-          source={require('../../assets/appIcon.png')} //Change your icon image here
-          style={{height: 30, width: 30}}
-        />
+        <TouchableOpacity
+          onPress={() => Linking.openURL('https://gashome.info')}>
+          <Image
+            source={require('../../assets/appIcon.png')} //Change your icon image here
+            style={{height: 30, width: 30}}
+          />
+        </TouchableOpacity>
+
         <TouchableOpacity
           onPress={handlePress}
           style={{

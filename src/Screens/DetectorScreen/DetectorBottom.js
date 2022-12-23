@@ -47,7 +47,6 @@ export default function DetectorBottom({detectorHistory}) {
               }}>
               {currentDate}
             </Text>
-            <Text>2022-12-20</Text>
           </>
         ) : (
           <>
