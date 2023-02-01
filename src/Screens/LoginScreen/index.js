@@ -16,6 +16,7 @@ import AuthContext from '../../context/auth/AuthContext';
 import Loading from '../../components/Loading';
 import CustomHeaderOne from '../../components/CustomHeaderOne';
 import CustomInputPhoneNumber from '../../components/CustomInputPhoneNumber';
+import EyeSvg from '../../assets/EyeSvg';
 
 const LoginScreen = ({navigation}) => {
   const authContext = useContext(AuthContext);
@@ -26,7 +27,7 @@ const LoginScreen = ({navigation}) => {
     phone_number: '',
     password: '',
   });
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const [maskedPhoneNumber, setMaskedPhoneNumber] = useState('');
 
   const handleForgotPasswordScreen = () => {
@@ -102,9 +103,11 @@ const LoginScreen = ({navigation}) => {
             <Pressable
               onPress={() => setShowPassword(!showPassword)}
               style={styles.togglePassWrapper}>
-              <Text style={styles.togglePassText}>
-                {showPassword ? t('t:show') : t('t:hide')}
-              </Text>
+              {showPassword ? (
+                <EyeSvg showPassword={showPassword} />
+              ) : (
+                <EyeSvg showPassword={showPassword} />
+              )}
             </Pressable>
           </View>
           <View style={{marginTop: 20}}>
@@ -113,14 +116,14 @@ const LoginScreen = ({navigation}) => {
               style={[styles.completeButton]}>
               <Text style={[styles.completeButtonText]}>{t('t:enter')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={handleForgotPasswordScreen}
               hitSlop={6}
               style={styles.forgotPasswordButton}>
               <Text style={styles.forgotPasswordButtonText}>
                 {t('t:forgotPassword')}
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
           </View>
         </SafeAreaView>
       </KeyboardAwareScrollView>

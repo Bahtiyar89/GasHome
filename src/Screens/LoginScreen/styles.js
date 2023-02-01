@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     fontFamily: 'TransatStandard',
     color: Colors.white,
     textDecorationLine: 'underline',
-    fontSize: 16,
+    fontSize: 20,
   },
   completeButton: {
     width: '100%',
