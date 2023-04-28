@@ -20,6 +20,8 @@ import {useTranslation} from 'react-i18next';
 import {Appbar} from 'react-native-paper';
 import {Dropdown} from 'sharingan-rn-modal-dropdown';
 import {useFocusEffect} from '@react-navigation/native';
+import PropTypes from 'prop-types';
+
 import DetectorContext from '../../context/detector/DetectorContext';
 import defaultImage from '../../assets/defaultImage.jpg';
 import HomeBottomSheet from '../../components/HomeBottomSheet';
@@ -110,17 +112,10 @@ export default function DetectorScreen({navigation}) {
     ref.current.show();
   };
 
-  console.log('444 : ', profile);
   return (
     <Fragment>
       {loading_detector && <CustomModal loading={loading_detector} />}
-      <Appbar.Header
-        style={{
-          backgroundColor: '#fff',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          height: 30,
-        }}>
+      <Appbar.Header style={styles.appbarHeader}>
         <TouchableOpacity
           onPress={() => Linking.openURL('https://gashome.info')}>
           <Image
@@ -172,3 +167,11 @@ export default function DetectorScreen({navigation}) {
     </Fragment>
   );
 }
+
+DetectorScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
+DetectorScreen.defaultProps = {
+  navigation: {},
+};

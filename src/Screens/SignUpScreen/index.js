@@ -11,6 +11,7 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTranslation} from 'react-i18next';
 import {useToast} from 'react-native-toast-notifications';
+import PropTypes from 'prop-types';
 
 import AuthContext from '../../context/auth/AuthContext';
 import Loading from '../../components/Loading';
@@ -18,7 +19,7 @@ import CustomHeaderOne from '../../components/CustomHeaderOne';
 import CustomInputPhoneNumber from '../../components/CustomInputPhoneNumber';
 import styles from './styles';
 
-export default function SignUpScreen({navigation}) {
+const SignUpScreen = ({navigation}) => {
   const authContext = useContext(AuthContext);
   const {signup, loading} = authContext;
   const toast = useToast();
@@ -235,4 +236,14 @@ export default function SignUpScreen({navigation}) {
       </KeyboardAwareScrollView>
     </Fragment>
   );
-}
+};
+
+SignUpScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
+SignUpScreen.defaultProps = {
+  navigation: {},
+};
+
+export default SignUpScreen;

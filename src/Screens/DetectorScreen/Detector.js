@@ -15,6 +15,7 @@ import {
 import {Dimensions} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {BarChart} from 'react-native-gifted-charts';
+import PropTypes from 'prop-types';
 
 import DetectorBottom from './DetectorBottom';
 
@@ -118,3 +119,10 @@ export default function Detector({detectorHistory}) {
     </Fragment>
   );
 }
+Detector.propTypes = {
+  detectorHistory: PropTypes.object,
+};
+
+Detector.defaultProps = {
+  detectorHistory: {},
+};

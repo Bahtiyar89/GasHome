@@ -6,6 +6,7 @@ import OcticonsIcons from 'react-native-vector-icons/Octicons';
 import CheckEmailModal from '../../components/CheckEmailModal';
 import CustomHeaderOne from '../../components/CustomHeaderOne';
 import styles from './styles';
+import PropTypes from 'prop-types';
 
 export default function ForgotPasswordScreen({navigation}) {
   const [userData, seTuserData] = useState({email: ''});
@@ -74,3 +75,10 @@ export default function ForgotPasswordScreen({navigation}) {
     </Fragment>
   );
 }
+ForgotPasswordScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
+ForgotPasswordScreen.defaultProps = {
+  navigation: {},
+};

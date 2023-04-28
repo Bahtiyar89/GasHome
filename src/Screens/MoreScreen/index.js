@@ -9,6 +9,7 @@ import {
 import BottomSheet from 'react-native-gesture-bottom-sheet';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTranslation} from 'react-i18next';
+import PropTypes from 'prop-types';
 
 import CustomHeaderOne from '../../components/CustomHeaderOne';
 import styles from './styles';
@@ -34,12 +35,7 @@ export default function MoreScreen({navigation}) {
           <ScrollView contentInsetAdjustmentBehavior="automatic">
             <View style={styles.container}>
               <TouchableOpacity
-                style={{
-                  backgroundColor: '#00ADEF',
-                  height: 40,
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                }}
+                style={styles.chooseAppLanguage}
                 onPress={() => bottomSheet.current.show()}>
                 <Text style={styles.text}>{t('t:chooseAppLanguage')}</Text>
               </TouchableOpacity>
@@ -53,14 +49,7 @@ export default function MoreScreen({navigation}) {
                 height={247}
                 dragIconColor={'#00ADEF'}
                 ref={bottomSheet}>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    marginTop: 20,
-                    fontWeight: '700',
-                    fontSize: 16,
-                    color: '#000',
-                  }}>
+                <Text style={styles.chooseLanguage}>
                   {t('t:chooseLanguage')}
                 </Text>
 
@@ -90,3 +79,10 @@ export default function MoreScreen({navigation}) {
     </Fragment>
   );
 }
+MoreScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
+MoreScreen.defaultProps = {
+  navigation: {},
+};

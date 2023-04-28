@@ -1,6 +1,7 @@
 import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import React, {Fragment, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import PropTypes from 'prop-types';
 
 import CustomHeaderOne from '../../components/CustomHeaderOne';
 import styles from './styles';
@@ -22,3 +23,10 @@ export default function PluginScreen({navigation}) {
     </Fragment>
   );
 }
+PluginScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
+PluginScreen.defaultProps = {
+  navigation: {},
+};

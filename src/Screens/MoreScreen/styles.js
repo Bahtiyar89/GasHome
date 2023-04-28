@@ -216,6 +216,19 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     textAlign: 'center',
   },
+  chooseAppLanguage: {
+    backgroundColor: '#00ADEF',
+    height: 40,
+    borderRadius: 10,
+    justifyContent: 'center',
+  },
+  chooseLanguage: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontWeight: '700',
+    fontSize: 16,
+    color: '#000',
+  },
 });
 
 export default styles;

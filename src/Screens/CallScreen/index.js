@@ -11,6 +11,7 @@ import {
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Button} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
+import PropTypes from 'prop-types';
 
 import CustomHeaderOne from '../../components/CustomHeaderOne';
 import styles from './styles';
@@ -74,3 +75,11 @@ export default function CallScreen({navigation}) {
     </Fragment>
   );
 }
+
+CallScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
+CallScreen.defaultProps = {
+  navigation: {},
+};

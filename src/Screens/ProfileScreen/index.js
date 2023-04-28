@@ -13,6 +13,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useFocusEffect} from '@react-navigation/native';
 import {Appbar} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
+import PropTypes from 'prop-types';
 
 import ShevronLeft from '../../assets/chevron-left';
 import DetectorContext from '../../context/detector/DetectorContext';
@@ -165,3 +166,11 @@ export default function ProfileScreen({navigation}) {
     </Fragment>
   );
 }
+
+ProfileScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
+ProfileScreen.defaultProps = {
+  navigation: {},
+};

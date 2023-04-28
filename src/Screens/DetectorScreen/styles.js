@@ -198,6 +198,54 @@ const styles = StyleSheet.create({
   googleIcon: {
     marginRight: 10,
   },
+
+  mainViev: {
+    marginTop: 20,
+    padding: 20,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  clientText: {
+    padding: 5,
+    textAlign: 'center',
+    width: '100%',
+    marginTop: 10,
+    backgroundColor: '#f2f2f2',
+  },
+  fragmenText: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontWeight: 'bold',
+  },
+  detectorBottomView: {
+    marginTop: 40,
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  selectDivice: {
+    color: '#000',
+    fontWeight: '400',
+    fontSize: 20,
+  },
+  currentDate: {
+    color: '#000',
+    fontWeight: '400',
+    fontSize: 12,
+  },
+
+  currentValveStatus: {
+    color: 'black',
+    fontWeight: '400',
+    fontSize: 20,
+  },
+  appbarHeader: {
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 30,
+  },
 });
 
 export default styles;

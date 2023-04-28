@@ -10,6 +10,7 @@ import {
 import styles from './styles';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTranslation} from 'react-i18next';
+import PropTypes from 'prop-types';
 
 import utility from '../../utils/Utility';
 import AuthContext from '../../context/auth/AuthContext';
@@ -129,6 +130,14 @@ const LoginScreen = ({navigation}) => {
       </KeyboardAwareScrollView>
     </Fragment>
   );
+};
+
+LoginScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
+LoginScreen.defaultProps = {
+  navigation: {},
 };
 
 export default LoginScreen;
