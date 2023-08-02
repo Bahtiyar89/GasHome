@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react';
-import {View, Text} from 'react-native';
+import React, {Fragment, useState, useContext, useEffect} from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
 import moment from 'moment';
 import {
   VictoryChart,
@@ -16,16 +16,20 @@ import {Dimensions} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {BarChart} from 'react-native-gifted-charts';
 import PropTypes from 'prop-types';
-
+import DetectorContext from '../../context/detector/DetectorContext';
 import DetectorBottom from './DetectorBottom';
+import styles from './styles';
 
 export default function Detector({detectorHistory}) {
+  const detectorContext = useContext(DetectorContext);
   const {t, i18n} = useTranslation();
+  const [postsPerPage] = useState(7);
+  const {getHistory, history_page, imei} = detectorContext;
 
   const getCoOptions = () => {
-    if (!detectorHistory) return [];
+    if (!detectorHistory?.results) return [];
 
-    let out = detectorHistory.map(c => {
+    let out = detectorHistory?.results.map(c => {
       return {
         y: parseInt(c.co, 10),
         x: moment(c.created).format('MMM D'),
@@ -34,9 +38,9 @@ export default function Detector({detectorHistory}) {
     return out;
   };
   const getChOptions = () => {
-    if (!detectorHistory) return [];
+    if (!detectorHistory?.results) return [];
 
-    let out = detectorHistory.map(c => {
+    let out = detectorHistory?.results.map(c => {
       return {
         y: parseInt(c.ch, 10),
         x: moment(c.created).format('MMM D'),
@@ -46,9 +50,9 @@ export default function Detector({detectorHistory}) {
     return out;
   };
   const getChargeOptions = () => {
-    if (!detectorHistory) return [];
+    if (!detectorHistory?.results) return [];
 
-    let out = detectorHistory.map(c => {
+    let out = detectorHistory?.results.map(c => {
       return {
         y: parseInt(c.charge, 10),
         x: moment(c.created).format('MMM D'),
@@ -64,6 +68,14 @@ export default function Detector({detectorHistory}) {
     {name: t('t:methane'), symbol: {fill: 'orange'}},
     {name: t('t:charge'), symbol: {fill: '#6D87D6'}},
   ];
+
+  const handleNext = () => {
+    getHistory(imei, history_page + 1, 6);
+  };
+  const handlePrevios = () => {
+    getHistory(imei, history_page - 1, 6);
+  };
+
   return (
     <Fragment>
       <Text style={{textAlign: 'center', marginTop: 20, fontWeight: 'bold'}}>
@@ -90,7 +102,11 @@ export default function Detector({detectorHistory}) {
         </VictoryChart>
       ) : (
         <VictoryChart domainPadding={40}>
-          <VictoryAxis label={''} style={{axisLabel: {padding: 0}}} />
+          <VictoryAxis
+            offsetX={100}
+            label={''}
+            style={{axisLabel: {padding: 0}}}
+          />
           <VictoryAxis
             dependentAxis
             label={t('t:meaning')}
@@ -115,6 +131,31 @@ export default function Detector({detectorHistory}) {
           />
         </VictoryChart>
       )}
+      <View style={styles.prevnextwrapper}>
+        <TouchableOpacity
+          disabled={history_page === 1}
+          onPress={handlePrevios}
+          style={styles.prevbtn(history_page === 1)}>
+          <Text style={styles.prevtxt}>{t('t:previos')}</Text>
+        </TouchableOpacity>
+        <Text
+          style={{
+            width: '15%',
+            alignSelf: 'center',
+            textAlign: 'center',
+          }}>
+          {history_page}/{Math.ceil(detectorHistory?.count / 7)}
+        </Text>
+        <TouchableOpacity
+          disabled={history_page === Math.ceil(detectorHistory?.count / 7)}
+          onPress={handleNext}
+          style={styles.nextbtn(
+            history_page === Math.ceil(detectorHistory?.count / 7),
+          )}>
+          <Text style={styles.nextxt}>{t('t:next')}</Text>
+        </TouchableOpacity>
+      </View>
+
       <DetectorBottom detectorHistory={detectorHistory} />
     </Fragment>
   );

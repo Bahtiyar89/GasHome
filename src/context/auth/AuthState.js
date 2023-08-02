@@ -25,6 +25,7 @@ const AuthState = props => {
 
   //Login User
   const signin = async formData => {
+    console.log('formData: ', formData);
     dispatch({type: LOADING, payload: true});
     doPost('/accounts/login-api/', formData)
       .then(({data}) => {

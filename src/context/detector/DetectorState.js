@@ -14,7 +14,11 @@ const DetectorState = props => {
     loading_detector: false,
     error: false,
     detectors: [],
+    device_count: 0,
+    device_page: 0,
     detectorHistory: [],
+    history_page: 0,
+    imei: null,
   };
 
   const [state, dispatch] = useReducer(DetectorReducer, initialState);
@@ -42,13 +46,15 @@ const DetectorState = props => {
   };
 
   //GET History
-  const getHistory = async imei => {
+  const getHistory = async (imei, page, postsPerPage) => {
     dispatch({type: types.LOADING_DETECTOR, payload: true});
-    doGet(`/device-api/${imei}/`)
+    doGet(
+      `/device-pagination-api/${imei}/?page=${page}&page_size=${postsPerPage}`,
+    )
       .then(({data}) => {
         dispatch({
           type: types.GET_HISTORY_DEVICE,
-          payload: data,
+          payload: {data, page, imei},
         });
         dispatch({type: types.LOADING_DETECTOR, payload: false});
       })
@@ -64,14 +70,23 @@ const DetectorState = props => {
   };
 
   //GET Device
-  const getDevice = async () => {
+  const getDevice = async page => {
+    console.log('pp:', page);
     dispatch({type: types.LOADING_DETECTOR, payload: true});
-    doGet(`/user-devices-api/?`)
+    doGet(`/user-devices-pagination-api/?page=${page}`)
       .then(({data}) => {
         dispatch({type: types.LOADING_DETECTOR, payload: false});
-        if (data.length != 0) {
-          dispatch({type: types.DETECTORS, payload: data});
-          getHistory(data[0]?.imei);
+        console.log('devices: ', data);
+        if (data.results.length != 0) {
+          dispatch({
+            type: types.DETECTORS,
+            payload: {
+              devices: data.results,
+              device_page: page,
+              device_count: data.count,
+            },
+          });
+          getHistory(data.results[0]?.imei, 1, 6);
         }
       })
       .catch(error => {
@@ -113,9 +128,13 @@ const DetectorState = props => {
       value={{
         loading_detector: state.loading_detector,
         detectors: state.detectors,
+        device_count: state.device_count,
+        device_page: state.device_page,
         detectorHistory: state.detectorHistory,
         error: state.error,
         profile: state.profile,
+        history_page: state.history_page,
+        imei: state.imei,
         getDevice,
         getProfile,
         getHistory,

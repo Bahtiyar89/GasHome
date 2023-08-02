@@ -52,4 +52,6 @@ export default {
   help: 'Помощь',
   viewProfile: 'Посмотреть профиль',
   signOut: 'Выйти',
+  previos: 'Предыдуший',
+  next: 'Следуюший',
 };

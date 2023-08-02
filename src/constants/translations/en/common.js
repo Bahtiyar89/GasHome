@@ -53,4 +53,6 @@ export default {
   help: 'Help',
   viewProfile: 'View Profile',
   signOut: 'Sign Out',
+  previos: 'Previos',
+  next: 'Next',
 };

@@ -4,7 +4,6 @@ import React, {
   useContext,
   useRef,
   useCallback,
-  useEffect,
 } from 'react';
 import {
   View,
@@ -23,8 +22,8 @@ import {useFocusEffect} from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
 import DetectorContext from '../../context/detector/DetectorContext';
-import defaultImage from '../../assets/defaultImage.jpg';
 import HomeBottomSheet from '../../components/HomeBottomSheet';
+import DeviceBottomSheet from '../../components/DeviceBottomSheet';
 import CustomModal from '../../components/CustomLoading';
 import Client from './Client';
 import Detector from './Detector';
@@ -42,6 +41,7 @@ export default function DetectorScreen({navigation}) {
     loading_detector,
     detectorHistory,
     detectors,
+    imei,
   } = detectorContext;
 
   const data = [
@@ -59,8 +59,6 @@ export default function DetectorScreen({navigation}) {
     label: t('t:sensor'),
   });
 
-  const [imei, setImei] = useState(null);
-
   const onChangeLanguage = language => {
     if (language === 'client') {
       getProfile();
@@ -76,11 +74,6 @@ export default function DetectorScreen({navigation}) {
     }
   };
 
-  const onChangeDevice = im => {
-    setImei(im);
-    getHistory(im);
-  };
-
   const barData = [
     {value: 250, label: 'M'},
     {value: 500, label: 'T', frontColor: '#177AD5'},
@@ -91,15 +84,14 @@ export default function DetectorScreen({navigation}) {
     {value: 300, label: 'S'},
   ];
   const ref = useRef(null);
+  const refDevice = useRef(null);
   const profilePicture = null;
 
   useFocusEffect(
     React.useCallback(() => {
       // Do something when the screen is focused
-      getDevice();
+      getDevice(1);
       getProfile();
-      // getHistory(7);
-
       return () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
@@ -110,6 +102,9 @@ export default function DetectorScreen({navigation}) {
 
   const handlePress = () => {
     ref.current.show();
+  };
+  const handlePressDevice = () => {
+    refDevice.current.show();
   };
 
   return (
@@ -123,7 +118,6 @@ export default function DetectorScreen({navigation}) {
             style={{height: 30, width: 30}}
           />
         </TouchableOpacity>
-
         <TouchableOpacity
           onPress={handlePress}
           style={{
@@ -135,7 +129,6 @@ export default function DetectorScreen({navigation}) {
             style={{height: 30, width: 30}}
           />
         </TouchableOpacity>
-        <HomeBottomSheet ref={ref} navigation={navigation} />
       </Appbar.Header>
 
       <KeyboardAwareScrollView>
@@ -150,20 +143,42 @@ export default function DetectorScreen({navigation}) {
               value={lang.value}
               onChange={onChangeLanguage}
             />
-            <Dropdown
-              mainContainerStyle={{width: '90%'}}
-              label={t('t:device')}
-              data={detectors}
-              value={imei === null ? detectors[0]?.value : imei}
-              onChange={onChangeDevice}
-            />
+            <TouchableOpacity
+              onPress={handlePressDevice}
+              style={{
+                backgroundColor: '#e3e3e3',
+                height: '100%',
+                width: '50%',
+                borderRadius: 10,
+                overflow: 'hidden',
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                alignContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View>
+                <Text style={{fontSize: 11}}>Устройство</Text>
+                <Text>{imei === null ? detectors[0]?.value : imei}</Text>
+              </View>
+
+              <Image
+                source={require('../../assets/arrow-down.png')} //Change your icon image here
+                style={{height: 15, width: 15}}
+              />
+            </TouchableOpacity>
           </View>
           {lang.value === 'detector' && (
-            <Detector detectorHistory={detectorHistory} barData={barData} />
+            <Detector
+              imei={imei}
+              detectorHistory={detectorHistory}
+              barData={barData}
+            />
           )}
           {lang.value === 'client' && <Client profile={profile} />}
         </SafeAreaView>
       </KeyboardAwareScrollView>
+      <HomeBottomSheet ref={ref} navigation={navigation} />
+      <DeviceBottomSheet ref={refDevice} navigation={navigation} />
     </Fragment>
   );
 }

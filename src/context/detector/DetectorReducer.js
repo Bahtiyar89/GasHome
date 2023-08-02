@@ -5,7 +5,11 @@ const INITIAL_STATE = {
   loading_detector: false,
   error: false,
   detectors: [],
+  device_count: 0,
+  device_page: 0,
   detectorHistory: [],
+  history_page: 0,
+  imei: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -17,19 +21,22 @@ export default (state = INITIAL_STATE, action) => {
     case types.UPDATE_PROFILE:
       return {...state, profile: action.payload};
     case types.GET_HISTORY_DEVICE:
-      return {...state, detectorHistory: action.payload};
+      const {data, page, imei} = action.payload;
+      return {...state, detectorHistory: data, history_page: page, imei};
     case types.DETECTORS:
+      const {devices, device_page, device_count} = action.payload;
+      console.log('device_page: ', device_page);
       const newDetectors = [];
-      for (const d in action.payload) {
+      for (const d in devices) {
         const detector = {
           value: '',
           label: '',
         };
-        detector.label = action.payload[d].name;
-        detector.value = action.payload[d].imei;
+        detector.label = devices[d].name;
+        detector.value = devices[d].imei;
         newDetectors.push(detector);
       }
-      return {...state, detectors: newDetectors};
+      return {...state, detectors: newDetectors, device_page, device_count};
     case types.CLEAR_DETECTOR:
       return {...state, profile: null, detectorHistory: []};
     default:
