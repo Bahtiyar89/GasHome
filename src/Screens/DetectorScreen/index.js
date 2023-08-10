@@ -35,7 +35,6 @@ export default function DetectorScreen({navigation}) {
   const {
     cleanDetector,
     getDevice,
-    getHistory,
     getProfile,
     profile,
     loading_detector,

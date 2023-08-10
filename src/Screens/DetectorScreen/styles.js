@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   prevbtn: check => ({
-    width: '30%',
+    width: '35%',
     alignItems: 'center',
     padding: 10,
     backgroundColor: check ? '#ffdc75' : 'orange',
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   }),
   prevtxt: {fontWeight: 'bold', color: '#fff'},
   nextbtn: check => ({
-    width: '30%',
+    width: '35%',
     alignItems: 'center',
     padding: 10,
     backgroundColor: check ? '#b6c3ea' : '#6D87D6',

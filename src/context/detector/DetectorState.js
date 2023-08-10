@@ -19,6 +19,7 @@ const DetectorState = props => {
     detectorHistory: [],
     history_page: 0,
     imei: null,
+    ch: null,
   };
 
   const [state, dispatch] = useReducer(DetectorReducer, initialState);
@@ -46,16 +47,41 @@ const DetectorState = props => {
   };
 
   //GET History
-  const getHistory = async (imei, page, postsPerPage) => {
+  const getHistory = async (imei, page, postsPerPage, bool) => {
     dispatch({type: types.LOADING_DETECTOR, payload: true});
+    console.log('page: ', page);
     doGet(
       `/device-pagination-api/${imei}/?page=${page}&page_size=${postsPerPage}`,
     )
       .then(({data}) => {
+        console.log('data:: ', data);
         dispatch({
           type: types.GET_HISTORY_DEVICE,
-          payload: {data, page, imei},
+          payload: {data, page, imei, bool},
         });
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
+      })
+      .catch(error => {
+        toast.show(JSON.stringify(error.message), {
+          type: 'warning',
+          duration: 3000,
+          animationType: 'zoom-in',
+        });
+
+        dispatch({type: types.LOADING_DETECTOR, payload: false});
+      });
+  };
+
+  //GET History Count
+  const getHistoryCount = async (imei, page, postsPerPage) => {
+    dispatch({type: types.LOADING_DETECTOR, payload: true});
+    console.log('page: ', page);
+    doGet(
+      `/device-pagination-api/${imei}/?page=${page}&page_size=${postsPerPage}`,
+    )
+      .then(({data}) => {
+        console.log('fff:: ', data);
+        getHistory(imei, Math.ceil(data?.count / 10), 10, true);
         dispatch({type: types.LOADING_DETECTOR, payload: false});
       })
       .catch(error => {
@@ -76,7 +102,6 @@ const DetectorState = props => {
     doGet(`/user-devices-pagination-api/?page=${page}`)
       .then(({data}) => {
         dispatch({type: types.LOADING_DETECTOR, payload: false});
-        console.log('devices: ', data);
         if (data.results.length != 0) {
           dispatch({
             type: types.DETECTORS,
@@ -86,7 +111,7 @@ const DetectorState = props => {
               device_count: data.count,
             },
           });
-          getHistory(data.results[0]?.imei, 1, 6);
+          getHistoryCount(data.results[0]?.imei, 1, 10);
         }
       })
       .catch(error => {
@@ -135,6 +160,7 @@ const DetectorState = props => {
         profile: state.profile,
         history_page: state.history_page,
         imei: state.imei,
+        ch: state.ch,
         getDevice,
         getProfile,
         getHistory,

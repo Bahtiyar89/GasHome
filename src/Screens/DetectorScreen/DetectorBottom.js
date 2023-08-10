@@ -1,11 +1,17 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {useContext, Fragment, useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import PropTypes from 'prop-types';
+import {useToast} from 'react-native-toast-notifications';
+
+import DetectorContext from '../../context/detector/DetectorContext';
 import styles from './styles';
 
 export default function DetectorBottom({detectorHistory}) {
+  const toast = useToast();
+  const detectorContext = useContext(DetectorContext);
   const {results} = detectorHistory;
+  const {ch} = detectorContext;
   const {t, i18n} = useTranslation();
   const [currentDate, setCurrentDate] = useState('');
   const [madeDate, setMadeDate] = useState('');
@@ -16,6 +22,16 @@ export default function DetectorBottom({detectorHistory}) {
     var year = new Date().getFullYear(); //Current Year
 
     setCurrentDate(date + '/' + month + '/' + year);
+    if (ch > 50) {
+      toast.show(
+        'Будте внимательны было превышение по СН. Клапан закрыт принудительно.',
+        {
+          type: 'warning',
+          duration: 3000,
+          animationType: 'zoom-in',
+        },
+      );
+    }
   }, []);
 
   var dateM = results
@@ -28,6 +44,7 @@ export default function DetectorBottom({detectorHistory}) {
     ? new Date(results[0]?.created).getFullYear()
     : new Date().getDate(); //Cu
 
+  console.log('ch::: ', ch);
   return (
     <Fragment>
       <View style={styles.detectorBottomView}>
@@ -42,6 +59,7 @@ export default function DetectorBottom({detectorHistory}) {
               {t('t:currentValveStatus')}
             </Text>
             <Text>{dateM + '/' + monthM + '/' + yearM}</Text>
+            <Text>{ch > 50 ? 'Закрыт клапан' : 'Открыт клапан'}</Text>
           </>
         )}
       </View>

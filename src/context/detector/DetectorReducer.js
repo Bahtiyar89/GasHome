@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   detectorHistory: [],
   history_page: 0,
   imei: null,
+  ch: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -21,11 +22,24 @@ export default (state = INITIAL_STATE, action) => {
     case types.UPDATE_PROFILE:
       return {...state, profile: action.payload};
     case types.GET_HISTORY_DEVICE:
-      const {data, page, imei} = action.payload;
-      return {...state, detectorHistory: data, history_page: page, imei};
+      const {data, page, imei, bool} = action.payload;
+      console.log('bool: ', bool);
+      console.log('888 ', data.results?.slice(-1)[0]?.ch > 50);
+      if (bool) {
+        return {
+          ...state,
+          detectorHistory: data,
+          history_page: page,
+          imei,
+          ch: data.results?.slice(-1)[0]?.ch,
+        };
+      } else {
+        return {...state, detectorHistory: data, history_page: page, imei};
+      }
+
     case types.DETECTORS:
       const {devices, device_page, device_count} = action.payload;
-      console.log('device_page: ', device_page);
+
       const newDetectors = [];
       for (const d in devices) {
         const detector = {

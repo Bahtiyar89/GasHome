@@ -31,7 +31,7 @@ const DeviceBottomSheet = forwardRef(({image, navigation}, ref) => {
     const handleDevice = id => {
       console.log('id:', id);
       //  getDevice(id);
-      getHistory(id, 1, 6);
+      getHistory(id, 1, 10, false);
       ref.current.close();
     };
     return (

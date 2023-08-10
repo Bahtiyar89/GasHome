@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   prevbtn: check => ({
-    width: '30%',
+    width: '35%',
+    alignSelf: 'center',
     alignItems: 'center',
     padding: 10,
     backgroundColor: check ? '#ffdc75' : 'orange',
@@ -23,6 +24,7 @@ const styles = StyleSheet.create({
   prevtxt: {fontWeight: 'bold', color: '#fff'},
   nextbtn: check => ({
     width: '30%',
+    alignSelf: 'center',
     alignItems: 'center',
     padding: 10,
     backgroundColor: check ? '#b6c3ea' : '#6D87D6',

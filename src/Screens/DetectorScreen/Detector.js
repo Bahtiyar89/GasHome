@@ -1,5 +1,5 @@
 import React, {Fragment, useState, useContext, useEffect} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import moment from 'moment';
 import {
   VictoryChart,
@@ -23,7 +23,6 @@ import styles from './styles';
 export default function Detector({detectorHistory}) {
   const detectorContext = useContext(DetectorContext);
   const {t, i18n} = useTranslation();
-  const [postsPerPage] = useState(7);
   const {getHistory, history_page, imei} = detectorContext;
 
   const getCoOptions = () => {
@@ -31,8 +30,8 @@ export default function Detector({detectorHistory}) {
 
     let out = detectorHistory?.results.map(c => {
       return {
-        y: parseInt(c.co, 10),
-        x: moment(c.created).format('MMM D'),
+        y: c.co,
+        x: moment(c.created).format('MMM D hh:m'),
       };
     });
     return out;
@@ -43,7 +42,7 @@ export default function Detector({detectorHistory}) {
     let out = detectorHistory?.results.map(c => {
       return {
         y: parseInt(c.ch, 10),
-        x: moment(c.created).format('MMM D'),
+        x: moment(c.created).format('MMM D hh:m'),
       };
     });
 
@@ -55,7 +54,7 @@ export default function Detector({detectorHistory}) {
     let out = detectorHistory?.results.map(c => {
       return {
         y: parseInt(c.charge, 10),
-        x: moment(c.created).format('MMM D'),
+        x: moment(c.created).format('MMM D hh:m'),
       };
     });
 
@@ -70,11 +69,13 @@ export default function Detector({detectorHistory}) {
   ];
 
   const handleNext = () => {
-    getHistory(imei, history_page + 1, 6);
+    getHistory(imei, history_page + 1, 10, false);
   };
   const handlePrevios = () => {
-    getHistory(imei, history_page - 1, 6);
+    getHistory(imei, history_page - 1, 10, false);
   };
+
+  console.log('arr.slice(-1)[0]  ', detectorHistory?.results?.slice(-1)[0]?.ch);
 
   return (
     <Fragment>
@@ -101,35 +102,40 @@ export default function Detector({detectorHistory}) {
           />
         </VictoryChart>
       ) : (
-        <VictoryChart domainPadding={40}>
-          <VictoryAxis
-            offsetX={100}
-            label={''}
-            style={{axisLabel: {padding: 0}}}
-          />
-          <VictoryAxis
-            dependentAxis
-            label={t('t:meaning')}
-            style={{axisLabel: {padding: 35}}}
-          />
-          <VictoryGroup offset={20}>
-            <VictoryBar data={getCoOptions()} style={{data: {fill: 'grey'}}} />
-            <VictoryBar
-              data={getChOptions()}
-              style={{data: {fill: 'orange'}}}
+        <ScrollView horizontal={true}>
+          <VictoryChart width={750} domainPadding={10}>
+            <VictoryAxis
+              offsetX={100}
+              label={''}
+              style={{axisLabel: {padding: 0}}}
             />
-            <VictoryBar
-              data={getChargeOptions()}
-              style={{data: {fill: '#6D87D6'}}}
+            <VictoryAxis
+              dependentAxis
+              label={t('t:meaning')}
+              style={{axisLabel: {padding: 35}}}
             />
-          </VictoryGroup>
-          <VictoryLegend
-            x={Dimensions.get('screen').width / 4 - 80}
-            orientation={'horizontal'}
-            gutter={20}
-            data={data}
-          />
-        </VictoryChart>
+            <VictoryGroup offset={10}>
+              <VictoryBar
+                data={getCoOptions()}
+                style={{data: {fill: 'grey'}}}
+              />
+              <VictoryBar
+                data={getChOptions()}
+                style={{data: {fill: 'orange'}}}
+              />
+              <VictoryBar
+                data={getChargeOptions()}
+                style={{data: {fill: '#6D87D6'}}}
+              />
+            </VictoryGroup>
+            <VictoryLegend
+              x={Dimensions.get('screen').width / 4 - 80}
+              orientation={'horizontal'}
+              gutter={20}
+              data={data}
+            />
+          </VictoryChart>
+        </ScrollView>
       )}
       <View style={styles.prevnextwrapper}>
         <TouchableOpacity
@@ -144,13 +150,13 @@ export default function Detector({detectorHistory}) {
             alignSelf: 'center',
             textAlign: 'center',
           }}>
-          {history_page}/{Math.ceil(detectorHistory?.count / 7)}
+          {history_page}/{Math.ceil(detectorHistory?.count / 10)}
         </Text>
         <TouchableOpacity
-          disabled={history_page === Math.ceil(detectorHistory?.count / 7)}
+          disabled={history_page === Math.ceil(detectorHistory?.count / 10)}
           onPress={handleNext}
           style={styles.nextbtn(
-            history_page === Math.ceil(detectorHistory?.count / 7),
+            history_page === Math.ceil(detectorHistory?.count / 10),
           )}>
           <Text style={styles.nextxt}>{t('t:next')}</Text>
         </TouchableOpacity>
