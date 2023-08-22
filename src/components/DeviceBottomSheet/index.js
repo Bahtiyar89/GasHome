@@ -10,7 +10,7 @@ import styles from './styles';
 
 const DeviceBottomSheet = forwardRef(({image, navigation}, ref) => {
   const detectorContext = useContext(DetectorContext);
-  const {getHistory, getDevice, detectors, device_page, device_count} =
+  const {getHistoryCount, getDevice, detectors, device_page, device_count} =
     detectorContext;
   const {t} = useTranslation();
 
@@ -31,7 +31,7 @@ const DeviceBottomSheet = forwardRef(({image, navigation}, ref) => {
     const handleDevice = id => {
       console.log('id:', id);
       //  getDevice(id);
-      getHistory(id, 1, 10, false);
+      getHistoryCount(id, 1, 10);
       ref.current.close();
     };
     return (

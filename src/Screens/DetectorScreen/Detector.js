@@ -75,15 +75,13 @@ export default function Detector({detectorHistory}) {
     getHistory(imei, history_page - 1, 10, false);
   };
 
-  console.log('arr.slice(-1)[0]  ', detectorHistory?.results?.slice(-1)[0]?.ch);
-
   return (
     <Fragment>
       <Text style={{textAlign: 'center', marginTop: 20, fontWeight: 'bold'}}>
         {t('t:hydrocarbons')}
       </Text>
 
-      {detectorHistory.length === 0 ? (
+      {detectorHistory?.results?.length === 0 ? (
         <VictoryChart
           // domainPadding will add space to each side of VictoryBar to
           // prevent it from overlapping the axis

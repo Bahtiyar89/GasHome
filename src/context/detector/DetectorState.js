@@ -81,7 +81,14 @@ const DetectorState = props => {
     )
       .then(({data}) => {
         console.log('fff:: ', data);
-        getHistory(imei, Math.ceil(data?.count / 10), 10, true);
+        if (data?.results?.length > 0) {
+          getHistory(imei, Math.ceil(data?.count / 10), 10, true);
+        } else {
+          dispatch({
+            type: types.GET_HISTORY_DEVICE,
+            payload: {data, page, imei, bool: false},
+          });
+        }
         dispatch({type: types.LOADING_DETECTOR, payload: false});
       })
       .catch(error => {
@@ -163,6 +170,7 @@ const DetectorState = props => {
         ch: state.ch,
         getDevice,
         getProfile,
+        getHistoryCount,
         getHistory,
         cleanDetector,
         patchProfile,
