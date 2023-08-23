@@ -101,7 +101,9 @@ export default function Detector({detectorHistory}) {
         </VictoryChart>
       ) : (
         <ScrollView horizontal={true}>
-          <VictoryChart width={750} domainPadding={10}>
+          <VictoryChart
+            width={detectorHistory?.results?.length >= 5 ? 750 : 450}
+            domainPadding={detectorHistory?.results?.length >= 5 ? 10 : 30}>
             <VictoryAxis
               offsetX={100}
               label={''}
